@@ -19,8 +19,10 @@ Three homepage directions, each betting the page on a different proof element, p
 - **The photography is placeholder stock. None of these are Total Build homes.** Real
   photography (Gabe's shoot, Schwartz first) is still to come, and it will change how all
   three read — it will help A most, since A bets everything on the images.
-- **There is no photograph of Brian**, so a proportioned placeholder block stands in. This
-  penalises C hardest, since C leads with him. Judge the layout, not the grey rectangle.
+- **Brian's portrait is a placeholder block.** A photograph of him exists on the live site, but it
+  is 504px with a circular crop baked into the file, so it cannot sit in a sharp-cornered frame at
+  size. We need the uncropped original, or a new portrait. This penalises C hardest, since C leads
+  with him -- judge the layout, not the grey rectangle.
 - **No certifications appear anywhere**, because none are confirmed. Same for any
   years-in-business number.
 - The phone number is the one confirmed with Joe. The live site publishes a different one —
