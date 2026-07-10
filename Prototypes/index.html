@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Total Build — Homepage Prototypes</title>
+<link rel="stylesheet" href="../Design-System/styles.css">
+<style>
+  body { background: var(--surface-page); color: var(--text-strong); font-family: var(--font-body); margin: 0; }
+  .wrap { max-width: 1100px; margin-inline: auto; padding: var(--space-8) var(--gutter) var(--space-16); }
+  header { border-bottom: 1px solid var(--tb-stone-gray); padding-bottom: var(--space-4); margin-bottom: var(--space-8); display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
+  .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: var(--type-eyebrow-ls); color: var(--accent); margin: 0 0 var(--space-2); }
+  h1 { font-family: var(--font-display); font-weight: 400; font-size: 40px; line-height: 48px; margin: 0; }
+  .meta { font-size: 13px; color: var(--text-muted); line-height: 20px; text-align: right; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--tb-stone-gray); background: var(--surface-raised); display: flex; flex-direction: column; }
+  .card img { width: 100%; aspect-ratio: 3/2; object-fit: cover; object-position: top; display: block; border-bottom: 1px solid var(--tb-stone-gray); }
+  .card-body { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
+  .card h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 32px; margin: 0; }
+  .bet { font-size: 11px; text-transform: uppercase; letter-spacing: var(--type-label-bold-ls); color: var(--accent); margin: 0; }
+  .card p { font-size: 14px; line-height: 22px; color: var(--text-muted); margin: 0; }
+  .card ul { margin: 0; padding-left: 18px; font-size: 13px; line-height: 21px; color: var(--text-muted); }
+  .actions { margin-top: auto; padding-top: var(--space-3); display: flex; gap: var(--space-2); }
+  .btn { display: inline-block; padding: 12px 20px; font-size: 12px; font-weight: 700; letter-spacing: var(--type-label-bold-ls); text-transform: uppercase; text-decoration: none; border-radius: 0; }
+  .btn-primary { background: var(--tb-deep-onyx); color: var(--tb-architectural-cream); }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-secondary { border: 1px solid var(--tb-deep-onyx); color: var(--tb-deep-onyx); }
+  .btn-secondary:hover { background: var(--tb-deep-onyx); color: var(--tb-architectural-cream); }
+  .feature { margin-top: var(--space-12); border: 1px solid var(--tb-stone-gray); background: var(--surface-raised); display: grid; grid-template-columns: 1fr 380px; }
+  @media (max-width: 900px) { .feature { grid-template-columns: 1fr; } .feature img { order: -1; } }
+  .feature__body { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); }
+  .feature h2 { font-family: var(--font-display); font-weight: 400; font-size: 32px; line-height: 40px; margin: 0; }
+  .feature p { font-size: 14px; line-height: 24px; color: var(--text-muted); margin: 0; max-width: 62ch; }
+  .feature img { width: 100%; height: 100%; min-height: 260px; object-fit: cover; display: block; border-left: 1px solid var(--tb-stone-gray); }
+  @media (max-width: 900px) { .feature img { border-left: 0; border-bottom: 1px solid var(--tb-stone-gray); } }
+
+  .notes { margin-top: var(--space-12); border-top: 1px solid var(--tb-stone-gray); padding-top: var(--space-6); }
+  .notes h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px; margin: 0 0 var(--space-3); }
+  .notes ul { font-size: 14px; line-height: 24px; color: var(--text-muted); padding-left: 20px; margin: 0 0 var(--space-5); }
+  .notes strong { color: var(--text-strong); }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: 12px; background: var(--surface-sunken); padding: 1px 5px; }
+</style>
+<style>#pb{position:relative;z-index:9999;display:flex;align-items:center;justify-content:center;gap:16px;background:#0F1B26;color:#F9F7F5;font-family:"Public Sans",system-ui,sans-serif;font-size:12px;letter-spacing:.06em;padding:10px 16px;text-align:center;border-radius:0}#pb b{color:#CA7B41;font-weight:700;text-transform:uppercase;letter-spacing:.1em}#pb button{background:transparent;border:1px solid rgba(249,247,245,.4);color:#F9F7F5;font:inherit;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:0;cursor:pointer}#pb button:hover{background:#CA7B41;border-color:#CA7B41}(max-width:640px){#pb{font-size:11px;padding:8px 12px}}</style>
+</head>
+<body>
+<div id="pb"><span><b>Prototype</b> &mdash; work in progress. Photography is placeholder stock; these are not Total Build homes.</span><button type="button" onclick="document.getElementById('pb').remove()" aria-label="Dismiss">Dismiss</button></div>
+<div class="wrap">
+
+  <header>
+    <div>
+      <p class="eyebrow">Total Build &middot; Design phase</p>
+      <h1>Three homepage directions.</h1>
+    </div>
+    <div class="meta">
+      Built against the real design tokens.<br>
+      Real facts, real logo, placeholder photography.<br>
+      Best viewed at 1440px or wider.
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <div class="card">
+      <img src="assets/img/hero-exterior-dusk.jpg" alt="Prototype A — the Gallery: a full-bleed photograph of a custom home at dusk">
+      <div class="card-body">
+        <p class="bet">Bets on &mdash; the work</p>
+        <h2>A. The Gallery</h2>
+        <p>The spec-literal direction, and the most restrained. The homepage is a quiet frame and the homes are the only thing that speaks.</p>
+        <ul>
+          <li>One cinematic hero, almost no words</li>
+          <li>Portfolio grid is the backbone &mdash; most space, best craft</li>
+          <li>Owner, process, lineage all deliberately quiet</li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn-primary" href="a-gallery.html">Open A</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/img/craft-framing-interior.jpg" alt="Prototype B — the Ledger: the timber framing of a house under construction">
+      <div class="card-body">
+        <p class="bet">Bets on &mdash; the lineage</p>
+        <h2>B. The Ledger</h2>
+        <p>Four generations of Smith builders, unbroken since 1910, becomes the structural spine of the page rather than a section near the bottom.</p>
+        <ul>
+          <li>A continuous hairline &ldquo;record&rdquo; runs down the page</li>
+          <li>Sections numbered as ledger entries; years are typographic events</li>
+          <li>Recent projects read as the latest lines in a long record</li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn-primary" href="b-ledger.html">Open B</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="assets/img/interior-living-beams.jpg" alt="Prototype C — the Atelier: a warm, inhabited living room with exposed beams">
+      <div class="card-body">
+        <p class="bet">Bets on &mdash; the owner</p>
+        <h2>C. The Atelier</h2>
+        <p>You pick Total Build because of Brian. This direction says so early, and reads like the beginning of a conversation with the man who will build your house.</p>
+        <ul>
+          <li>Brian and the promise sit directly under the hero</li>
+          <li>His own words about the &ldquo;assembly line&rdquo; as the pull-quote</li>
+          <li>First-person register; warmest of the three</li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn-primary" href="c-atelier.html">Open C</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="feature">
+    <div class="feature__body">
+      <p class="bet">The inquiry flow</p>
+      <h2>Start a conversation</h2>
+      <p>Six questions, one per screen. Calm and unhurried, so it reads as the beginning of a real
+        conversation rather than a form. It gently qualifies without gating: the budget question is
+        required, because Brian cannot have an honest conversation without it, but every band is
+        phrased with respect and &ldquo;I would welcome guidance on this&rdquo; is a legitimate answer.</p>
+      <p>It works with the keyboard, it survives with JavaScript switched off, and it ends on a
+        confirmation that reinforces the promise: <em>we will be in touch personally, within a couple
+        of days.</em> All three homepages link to it.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="contact.html">Open the flow</a>
+      </div>
+    </div>
+    <img src="assets/img/interior-living-beams.jpg" alt="The photograph that anchors the inquiry flow">
+  </div>
+
+  <div class="notes">
+    <h3>What to look for &mdash; and what I already know is wrong</h3>
+    <ul>
+      <li><strong>All three share the same copy and the same hero photo on purpose.</strong> Only the structure differs, so the comparison is about ordering and emphasis, not about writing.</li>
+      <li><strong>The photography is placeholder</strong> and is doing a lot of unearned work. None of these are pictures of Total Build homes. Gabe&rsquo;s real shoot &mdash; Schwartz first &mdash; will change how all three read, and it will help A most, because A bets everything on the images.</li>
+      <li><strong>There is no photograph of Brian.</strong> Every prototype shows a proportioned placeholder block where his portrait goes. This penalises C hardest, since C leads with him. Judge C on the layout, not on the grey rectangle.</li>
+      <li><strong>The Schwartz residence has no photo,</strong> so where it appears it is shown honestly as an empty frame marked photography-pending.</li>
+      <li><strong>The 1910 timeline is gone from all three homepages.</strong> One sentence survives inside &ldquo;why work with us,&rdquo; with a &ldquo;Read our story&rdquo; link. The full record moves to About, which does not exist yet &mdash; that link goes nowhere on purpose.</li>
+      <li><strong>Direction B lost its thesis.</strong> B was built with the lineage as its structural spine. With the lineage demoted, its blueprint/ledger treatment is now a beautiful <em>skin</em> rather than a structural argument. Worth knowing before you pick it.</li>
+      <li><strong>Mobile nav is a non-functional label</strong> in all three. Deliberate &mdash; these are design prototypes, not builds.</li>
+      <li><strong>No certifications appear anywhere.</strong> None are confirmed, so none are printed. Same for years-in-business.</li>
+      <li>Phone shown is Joe&rsquo;s confirmed <code>(703) 634-9211</code>. The live site says <code>703-489-9199</code>. Still unresolved, still an SEO liability.</li>
+    </ul>
+
+    <h3>Open in Chrome</h3>
+    <ul>
+      <li>Everything is local and static. No server needed &mdash; open this file directly.</li>
+      <li>Fonts load from Google Fonts, so the type will only look right with an internet connection.</li>
+      <li>Desktop is the priority per Joe: <strong>desktop must be awesome, mobile just solid.</strong></li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

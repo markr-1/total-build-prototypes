@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Total Build — Color Tokens
+   "Architectural Prestige": curated architectural neutrals, near-black blue
+   authority, a single warm bronze accent. Light mode is the default.
+   ========================================================================== */
+
+:root {
+  /* ---- Brand core ---------------------------------------------------- */
+  --tb-deep-onyx:           #0F1B26; /* near-black blue — typographic authority, structure */
+  --tb-heritage-bronze:     #CA7B41; /* warm metallic accent — CTAs, active states (sparingly) */
+  --tb-architectural-cream: #F9F7F5; /* warm off-white — primary background, on-dark text */
+  --tb-stone-gray:          #7C7C7C; /* secondary text, captions */
+  --tb-slate-gray:          #445A72; /* muted structural blue, occasional accent */
+
+  /* ---- Neutral surface ramp (warm, tonal layering) ------------------- */
+  --tb-surface:                  #fbf9f7; /* page background */
+  --tb-surface-white:            #ffffff; /* lifted surface (lowest container) */
+  --tb-surface-container-low:    #f5f3f1;
+  --tb-surface-container:        #efedec;
+  --tb-surface-container-high:   #eae8e6;
+  --tb-surface-container-highest:#e4e2e0;
+  --tb-surface-dim:              #dbdad8;
+  --tb-inverse-surface:          #30302f; /* dark surface (footer/quotes use onyx instead) */
+
+  /* ---- Ink ----------------------------------------------------------- */
+  --tb-on-surface:          #1b1c1b; /* primary body ink */
+  --tb-on-surface-variant:  #44474b; /* secondary ink */
+  --tb-inverse-on-surface:  #f2f0ee; /* ink on dark surfaces */
+
+  /* ---- Lines --------------------------------------------------------- */
+  --tb-outline:         #74777c; /* default border / divider */
+  --tb-outline-variant: #c4c6cc; /* hairline divider, subtle */
+
+  /* ---- Bronze tints (for borders, hovers) ---------------------------- */
+  --tb-bronze-strong:   #904d16; /* deep bronze (secondary text-on-cream) */
+  --tb-bronze-soft:      #ffa769; /* light bronze container */
+
+  /* ---- Status -------------------------------------------------------- */
+  --tb-error:           #ba1a1a;
+  --tb-on-error:        #ffffff;
+  --tb-error-container: #ffdad6;
+
+  /* ======================================================================
+     Semantic aliases — prefer these in components
+     ====================================================================== */
+
+  /* Backgrounds */
+  --surface-page:        var(--tb-surface);           /* default page */
+  --surface-raised:      var(--tb-surface-white);     /* white cards/blocks */
+  --surface-sunken:      var(--tb-architectural-cream);/* cream secondary panels */
+  --surface-inverse:     var(--tb-deep-onyx);         /* dark sections, footer */
+
+  /* Text */
+  --text-strong:         var(--tb-deep-onyx);         /* headlines, structural */
+  --text-body:           var(--tb-on-surface);        /* body copy */
+  --text-muted:          var(--tb-stone-gray);        /* secondary / captions */
+  --text-on-inverse:     var(--tb-architectural-cream);/* text on onyx */
+  --text-on-inverse-muted: var(--tb-stone-gray);
+
+  /* Accent */
+  --accent:              var(--tb-heritage-bronze);
+  --accent-ink:          var(--tb-bronze-strong);     /* bronze readable on cream */
+  --on-accent:           #ffffff;
+
+  /* Lines & borders */
+  --border-default:      var(--tb-outline-variant);
+  --border-strong:       var(--tb-deep-onyx);
+  --border-accent:       var(--tb-heritage-bronze);
+  --border-on-inverse:   rgba(124,124,124,0.20);
+
+  /* Selection */
+  --selection-bg:        var(--tb-heritage-bronze);
+  --selection-fg:        #ffffff;
+}
+
+::selection { background: var(--selection-bg); color: var(--selection-fg); }

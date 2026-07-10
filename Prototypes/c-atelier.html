@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Total Build — Custom homes across Loudoun County</title>
+  <meta name="description" content="Total Build is a custom home builder in Loudoun County, Virginia. You work directly with Brian Smith, the owner. We only take on a few homes a year." />
+  <link rel="stylesheet" href="../Design-System/styles.css" />
+  <style>
+    /* ======================================================================
+       C. The Atelier — page-specific styles.
+       Structure and restraint carry the luxury; voice + photography carry the
+       warmth. 0px corners everywhere. The seal appears exactly twice
+       (Brian's block in §3, and the footer). Never in the header.
+
+       Six-section structure (revised): Hero → The work → Why work with us
+       → Gallery + reviews → How it works → Closing CTA.
+       ====================================================================== */
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--surface-page);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-size: var(--type-body-md-size);
+      line-height: var(--type-body-md-lh);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a { color: inherit; }
+
+    /* ---- Shared type helpers ---------------------------------------- */
+    .eyebrow {
+      font-family: var(--font-body);
+      font-weight: var(--fw-bold);
+      font-size: var(--type-label-bold-size);
+      line-height: var(--type-label-bold-lh);
+      letter-spacing: var(--type-eyebrow-ls);
+      text-transform: uppercase;
+      color: var(--accent-ink);
+      margin: 0;
+    }
+    .eyebrow--on-dark { color: var(--accent); }
+
+    .display {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(40px, 5.4vw, 72px);
+      line-height: 1.08;
+      letter-spacing: var(--type-display-ls);
+      margin: 0;
+    }
+    .headline {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(30px, 3.6vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: var(--text-strong);
+    }
+    .headline--sm {
+      font-size: clamp(24px, 2.4vw, 32px);
+      line-height: 1.2;
+    }
+
+    .lede {
+      font-family: var(--font-body);
+      font-size: var(--type-body-lg-size);
+      line-height: var(--type-body-lg-lh);
+      color: var(--text-body);
+      margin: 0;
+    }
+    .muted { color: var(--text-muted); }
+
+    /* ---- Buttons ---------------------------------------------------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-family: var(--font-body);
+      font-weight: var(--fw-bold);
+      font-size: var(--type-label-bold-size);
+      letter-spacing: var(--type-label-bold-ls);
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 32px;
+      border: var(--border-width) solid var(--tb-deep-onyx);
+      border-radius: 0; /* SHARP — never rounded */
+      background: var(--tb-deep-onyx);
+      color: var(--text-on-inverse);
+      cursor: pointer;
+      transition: background var(--dur-fast) var(--ease-standard),
+                  border-color var(--dur-fast) var(--ease-standard),
+                  color var(--dur-fast) var(--ease-standard);
+    }
+    .btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--text-strong);
+    }
+    .btn--ghost:hover { background: var(--tb-deep-onyx); border-color: var(--tb-deep-onyx); color: var(--text-on-inverse); }
+
+    .btn--on-dark {
+      background: var(--tb-architectural-cream);
+      border-color: var(--tb-architectural-cream);
+      color: var(--tb-deep-onyx);
+    }
+    .btn--on-dark:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ---- Layout ----------------------------------------------------- */
+    .container { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--gutter); }
+
+    .section { padding-block: var(--section-gap-desktop); }
+    .section--tight { padding-block: var(--space-12); }
+
+    .rule { border: 0; border-top: var(--border-width) solid var(--border-default); margin: 0; }
+
+    /* ======================================================================
+       Header — WORDMARK ONLY. The seal is never here.
+       ====================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(251, 249, 247, 0.9);
+      backdrop-filter: saturate(1.1) blur(8px);
+      border-bottom: var(--border-width) solid var(--border-default);
+      box-shadow: var(--shadow-ambient);
+    }
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      height: 76px;
+    }
+    .wordmark { height: 20px; width: auto; }
+    .site-nav { display: flex; align-items: center; gap: var(--space-5); }
+    .site-nav a {
+      font-family: var(--font-body);
+      font-weight: var(--fw-medium);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-strong);
+      padding-block: 6px;
+      border-bottom: 2px solid transparent;
+      transition: border-color var(--dur-fast) var(--ease-standard);
+    }
+    .site-nav a:hover, .site-nav a[aria-current="page"] { border-bottom-color: var(--accent); }
+    .header-cta { display: flex; align-items: center; gap: var(--space-4); }
+    .header-phone {
+      font-family: var(--font-body);
+      font-weight: var(--fw-medium);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: var(--text-strong);
+      white-space: nowrap;
+    }
+    .header-phone:hover { color: var(--accent-ink); }
+
+    /* ======================================================================
+       §1 Hero — cinematic, warm, now carrying real context.
+       ====================================================================== */
+    .hero {
+      position: relative;
+      min-height: 84vh;
+      display: flex;
+      align-items: flex-end;
+      color: var(--text-on-inverse);
+      overflow: hidden;
+    }
+    .hero__img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero__scrim {
+      position: absolute; inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(to top, rgba(15,27,38,0.82) 0%, rgba(15,27,38,0.28) 48%, rgba(15,27,38,0.10) 100%),
+        linear-gradient(to right, rgba(15,27,38,0.55), rgba(15,27,38,0) 60%);
+    }
+    .hero__inner { position: relative; z-index: 2; width: 100%; padding-block: var(--space-12); }
+    .hero__content { max-width: 760px; }
+    .hero .eyebrow { color: var(--tb-architectural-cream); opacity: 0.85; }
+    .hero__title { color: var(--tb-architectural-cream); margin-top: var(--space-3); }
+    .hero__sub {
+      color: var(--tb-architectural-cream);
+      opacity: 0.92;
+      max-width: 620px;
+      margin-top: var(--space-4);
+    }
+    .hero__actions { margin-top: var(--space-6); }
+
+    /* ---- Slim promise band directly under the hero ------------------ */
+    .promise-band {
+      background: var(--surface-inverse);
+      color: var(--text-on-inverse);
+      border-top: var(--border-width) solid rgba(202,123,65,0.30);
+    }
+    .promise-band__inner {
+      padding-block: var(--space-5);
+    }
+    .promise-band__text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(20px, 2.2vw, 28px);
+      line-height: 1.3;
+      margin: 0;
+      color: var(--tb-architectural-cream);
+    }
+
+    /* ======================================================================
+       §2 The work — three flagships, framed as his work.
+       ====================================================================== */
+    .work__head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--space-4); flex-wrap: wrap; }
+    .work__intro { max-width: 46ch; margin-top: var(--space-2); }
+    .work__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gutter);
+      margin-top: var(--space-8);
+    }
+    .project { border: var(--border-width) solid var(--border-default); background: var(--surface-raised); }
+    .project__media { aspect-ratio: var(--img-aspect-card); overflow: hidden; }
+    .project__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease-standard); }
+    .project:hover .project__media img { transform: scale(1.03); }
+    .project__body { padding: var(--space-4); }
+    .project__place {
+      font-family: var(--font-body);
+      font-weight: var(--fw-bold);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-ink);
+    }
+    .project__name { margin-top: var(--space-1); }
+    .project__desc { margin-top: var(--space-2); color: var(--text-muted); font-size: 15px; line-height: 24px; }
+
+    /* ======================================================================
+       §3 Why work with us — THE CENTREPIECE. Brian is the reason.
+       ====================================================================== */
+    .why { background: var(--surface-sunken); }
+    .why__head { max-width: 60ch; }
+    .why__intro { margin-top: var(--space-3); }
+
+    .owner__grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-12);
+      align-items: start;
+      margin-top: var(--space-12);
+    }
+    /* Portrait placeholder — proportioned like a real portrait (4:5). No stock face. */
+    .portrait {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      background: var(--tb-deep-onyx);
+      color: var(--tb-architectural-cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--space-4);
+      border: var(--border-width) solid var(--tb-deep-onyx);
+    }
+    .portrait__frame {
+      position: absolute; inset: 14px;
+      border: 1px solid rgba(249,247,245,0.16);
+      pointer-events: none;
+    }
+    .portrait__label {
+      font-family: var(--font-body);
+      font-weight: var(--fw-bold);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(249,247,245,0.85);
+      position: relative;
+      z-index: 1;
+    }
+    .portrait__note {
+      font-size: 12px;
+      color: rgba(249,247,245,0.5);
+      margin-top: 6px;
+      letter-spacing: 0.02em;
+      position: relative; z-index: 1;
+    }
+    .portrait__center {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(249,247,245,0.14);
+      font-family: var(--font-display);
+      font-size: 120px;
+      z-index: 0;
+      user-select: none;
+    }
+    .owner__caption {
+      margin-top: var(--space-2);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+    /* Seal as a stamp of authorship (seal use #1 of 2) */
+    .owner__body { position: relative; }
+    .owner__stamp {
+      width: 56px; height: 56px;
+      opacity: 0.9;
+      margin-bottom: var(--space-4);
+    }
+    .owner-promise {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.6vw, 34px);
+      line-height: 1.2;
+      color: var(--text-strong);
+      margin: 0;
+      max-width: 22ch;
+    }
+    .owner__meta {
+      margin-top: var(--space-4);
+      max-width: 56ch;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 24px;
+    }
+    /* His real words — italic Libre Caslon pull-quote. Only sourced facts. */
+    .owner-quote {
+      margin: var(--space-6) 0 0;
+      padding-left: var(--space-4);
+      border-left: 2px solid var(--accent);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(20px, 2.2vw, 28px);
+      line-height: 1.34;
+      color: var(--text-strong);
+    }
+    .owner-quote .hl { color: var(--accent-ink); font-style: italic; }
+    .owner-quote cite {
+      display: block;
+      margin-top: var(--space-3);
+      font-family: var(--font-body);
+      font-style: normal;
+      font-weight: var(--fw-bold);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ---- The four values ---- */
+    .values {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: var(--space-12);
+      border-top: var(--border-width) solid var(--tb-deep-onyx);
+    }
+    .value {
+      padding: var(--space-5) var(--space-4) 0;
+      border-right: var(--border-width) solid var(--border-default);
+    }
+    .value:first-child { padding-left: 0; }
+    .value:last-child { border-right: 0; padding-right: 0; }
+    .value__name {
+      font-family: var(--font-body);
+      font-weight: var(--fw-bold);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-strong);
+      margin: 0;
+    }
+    .value__desc { margin-top: var(--space-3); color: var(--text-muted); font-size: 15px; line-height: 24px; }
+
+    /* ---- One sentence of lineage, then a link. No timeline here. ---- */
+    .lineage-line {
+      margin-top: var(--space-12);
+      max-width: 74ch;
+      font-family: var(--font-body);
+      font-size: var(--type-body-lg-size);
+      line-height: var(--type-body-lg-lh);
+      color: var(--text-body);
+    }
+    .story-link {
+      display: inline-block;
+      margin-left: var(--space-2);
+      font-weight: var(--fw-bold);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--accent-ink);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 2px;
+      white-space: nowrap;
+    }
+    .story-link:hover { color: var(--text-strong); }
+
+    /* ======================================================================
+       §4 Gallery + reviews — a warm mosaic, testimonials woven through.
+       ====================================================================== */
+    .gallery__head { max-width: 56ch; }
+    .gallery__intro { margin-top: var(--space-3); }
+    .mosaic {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 210px;
+      gap: 16px;
+      margin-top: var(--space-8);
+    }
+    .m-tile { overflow: hidden; }
+    .m-tile img { width: 100%; height: 100%; object-fit: cover; }
+    .m-tall { grid-row: span 2; }
+    .m-wide { grid-column: span 2; }
+    .m-quote {
+      grid-column: span 2;
+      grid-row: span 2;
+      background: var(--surface-inverse);
+      color: var(--text-on-inverse);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .m-quote__mark { font-family: var(--font-display); font-size: 48px; line-height: 0.5; color: var(--accent); height: 26px; }
+    .m-quote blockquote {
+      margin: var(--space-3) 0 0;
+      font-family: var(--font-display);
+      font-size: clamp(18px, 1.5vw, 23px);
+      line-height: 1.5;
+      color: var(--tb-architectural-cream);
+    }
+    .m-quote cite {
+      display: block;
+      margin-top: var(--space-4);
+      font-family: var(--font-body);
+      font-style: normal;
+      font-weight: var(--fw-bold);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(249,247,245,0.7);
+    }
+
+    /* ======================================================================
+       §5 How it works — the calm four-step process, first person.
+       ====================================================================== */
+    .process { background: var(--surface-sunken); }
+    .process__head { max-width: 52ch; }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: var(--space-8);
+      border-top: var(--border-width) solid var(--tb-deep-onyx);
+    }
+    .step {
+      padding: var(--space-5) var(--space-4) var(--space-5);
+      border-right: var(--border-width) solid var(--border-default);
+    }
+    .step:first-child { padding-left: 0; }
+    .step:last-child { border-right: 0; padding-right: 0; }
+    .step__num {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--accent);
+    }
+    .step__title { margin-top: var(--space-3); }
+    .step__desc { margin-top: var(--space-2); color: var(--text-muted); font-size: 15px; line-height: 23px; }
+
+    /* ======================================================================
+       §6 Closing CTA
+       ====================================================================== */
+    .closing {
+      position: relative;
+      color: var(--text-on-inverse);
+      overflow: hidden;
+      text-align: center;
+    }
+    .closing__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .closing__scrim { position: absolute; inset: 0; z-index: 1; background: rgba(15,27,38,0.74); }
+    .closing__inner { position: relative; z-index: 2; padding-block: var(--section-gap-desktop); }
+    .closing .display { color: var(--tb-architectural-cream); }
+    .closing__sub { color: rgba(249,247,245,0.85); max-width: 48ch; margin: var(--space-4) auto 0; }
+    .closing__actions { margin-top: var(--space-6); }
+    .closing__contact {
+      margin-top: var(--space-6);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: rgba(249,247,245,0.8);
+    }
+    .closing__contact a { color: var(--accent); text-decoration: none; }
+
+    /* ======================================================================
+       Footer — seal use #2 of 2.
+       ====================================================================== */
+    .site-footer { background: var(--surface-inverse); color: var(--text-on-inverse); border-top: var(--border-width) solid rgba(249,247,245,0.12); }
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--space-8);
+      padding-block: var(--space-12);
+    }
+    .footer__brand { display: flex; flex-direction: column; gap: var(--space-3); }
+    .footer__wordmark { height: 22px; width: auto; }
+    .footer__blurb { color: rgba(249,247,245,0.62); max-width: 40ch; font-size: 15px; line-height: 24px; }
+    .footer__col h4 {
+      font-family: var(--font-body);
+      font-weight: var(--fw-bold);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(249,247,245,0.55);
+      margin: 0 0 var(--space-3);
+    }
+    .footer__col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+    .footer__col a { text-decoration: none; color: rgba(249,247,245,0.85); font-size: 15px; }
+    .footer__col a:hover { color: var(--accent); }
+    .tbr-out { display: inline-flex; align-items: baseline; gap: 6px; }
+    .tbr-out small { color: rgba(249,247,245,0.5); font-size: 12px; letter-spacing: 0.04em; }
+    .footer__bar {
+      border-top: var(--border-width) solid rgba(249,247,245,0.12);
+      padding-block: var(--space-4);
+      display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .footer__seal { width: 34px; height: 34px; opacity: 0.85; }
+    .footer__legal { color: rgba(249,247,245,0.5); font-size: 12px; letter-spacing: 0.04em; }
+
+    /* ======================================================================
+       Scroll reveal — progressive enhancement.
+       With JS OFF, nothing is hidden. The .js class is only added by script.
+       ====================================================================== */
+    html.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity var(--dur-slow) var(--ease-standard), transform var(--dur-slow) var(--ease-standard); }
+    html.js .reveal.is-visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html.js .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* Skip link */
+    .skip { position: absolute; left: -999px; top: 0; z-index: 100; }
+    .skip:focus { left: var(--gutter); top: var(--space-2); background: var(--tb-deep-onyx); color: #fff; padding: 10px 16px; }
+
+    .nav-toggle { display: none; }
+
+    /* ======================================================================
+       Responsive — solid at 390px
+       ====================================================================== */
+    @media (max-width: 960px) {
+      .site-nav, .header-phone { display: none; }
+      .work__grid { grid-template-columns: 1fr; }
+      .owner__grid { grid-template-columns: 1fr; gap: var(--space-6); }
+      .values { grid-template-columns: 1fr 1fr; border-top: 0; }
+      .value { border-right: 0; border-top: var(--border-width) solid var(--tb-deep-onyx); padding: var(--space-4) var(--space-4) var(--space-4) 0; }
+      .value:nth-child(even) { padding-right: 0; padding-left: var(--space-4); border-left: var(--border-width) solid var(--border-default); }
+      .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; gap: 12px; }
+      .m-tall { grid-row: span 2; }
+      .m-wide { grid-column: span 2; }
+      .m-quote { grid-column: span 2; grid-row: span 2; }
+      .steps { grid-template-columns: 1fr; border-top: 0; }
+      .step { border-right: 0; border-top: var(--border-width) solid var(--border-default); padding: var(--space-4) 0; }
+      .footer__grid { grid-template-columns: 1fr; gap: var(--space-6); }
+    }
+
+    @media (max-width: 560px) {
+      .container { padding-inline: var(--margin-mobile); }
+      .section { padding-block: var(--section-gap-mobile); }
+      .section--tight { padding-block: var(--space-8); }
+      .hero { min-height: 82vh; }
+      .owner__grid, .values { margin-top: var(--space-8); }
+      .lineage-line { margin-top: var(--space-8); }
+      .portrait { aspect-ratio: 4 / 5; }
+      .mosaic { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+      .m-tall { grid-row: span 1; }
+      .m-wide { grid-column: span 1; }
+      .m-quote { grid-column: span 1; grid-row: span 1; padding: var(--space-4); }
+      .btn { width: 100%; justify-content: center; }
+      .header-cta .btn { width: auto; }
+      .closing__inner { padding-block: var(--section-gap-mobile); }
+    }
+  </style>
+<style>#pb{position:relative;z-index:9999;display:flex;align-items:center;justify-content:center;gap:16px;background:#0F1B26;color:#F9F7F5;font-family:"Public Sans",system-ui,sans-serif;font-size:12px;letter-spacing:.06em;padding:10px 16px;text-align:center;border-radius:0}#pb b{color:#CA7B41;font-weight:700;text-transform:uppercase;letter-spacing:.1em}#pb button{background:transparent;border:1px solid rgba(249,247,245,.4);color:#F9F7F5;font:inherit;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:0;cursor:pointer}#pb button:hover{background:#CA7B41;border-color:#CA7B41}(max-width:640px){#pb{font-size:11px;padding:8px 12px}}</style>
+</head>
+<body>
+<div id="pb"><span><b>Prototype</b> &mdash; work in progress. Photography is placeholder stock; these are not Total Build homes.</span><button type="button" onclick="document.getElementById('pb').remove()" aria-label="Dismiss">Dismiss</button></div>
+  <a class="skip" href="#top">Skip to content</a>
+
+  <!-- ===================== Header — WORDMARK ONLY ===================== -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="#top" aria-label="Total Build — home">
+        <img class="wordmark" src="assets/logo/tb-wordmark-onyx.svg" alt="Total Build" />
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#top" aria-current="page">Home</a>
+        <a href="#work">Portfolio</a>
+        <a href="#process">Custom Homes</a>
+        <a href="#why">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-cta">
+        <a class="header-phone" href="tel:+17036349211">(703)&nbsp;634-9211</a>
+        <a class="btn" href="contact.html">Start a conversation</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ===================== §1 Hero ===================== -->
+    <section class="hero">
+      <img class="hero__img" src="assets/img/hero-exterior-dusk.jpg"
+           alt="A custom Total Build home at dusk, warm light in the windows, Loudoun County, Virginia" />
+      <div class="hero__scrim"></div>
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="eyebrow">Custom homes · Loudoun County, Virginia</p>
+          <h1 class="display hero__title">The home you haven't found yet.</h1>
+          <p class="lede hero__sub">Total Build is a custom home builder in Loudoun County, Virginia — small by choice. You work with Brian Smith, the owner, from the first sketch to the last beam, and we only take on a few homes a year. Each one is built for the family who'll actually live in it.</p>
+          <div class="hero__actions">
+            <a class="btn btn--on-dark" href="contact.html">Start a conversation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Slim promise band ===================== -->
+    <section class="promise-band" aria-label="Our promise">
+      <div class="container promise-band__inner">
+        <p class="promise-band__text">We'll build it right, and it'll be yours.</p>
+      </div>
+    </section>
+
+    <!-- ===================== §2 The work — three flagships ===================== -->
+    <section class="section" id="work">
+      <div class="container">
+        <div class="work__head reveal">
+          <div>
+            <p class="eyebrow">The work</p>
+            <h2 class="headline">A few of the homes Brian has built.</h2>
+          </div>
+          <p class="lede work__intro muted">Depth over volume — three of the custom homes and restorations Brian has led across Loudoun County, each built for the family who lives in it.</p>
+        </div>
+
+        <div class="work__grid">
+          <article class="project reveal">
+            <div class="project__media">
+              <img src="assets/img/interior-living-beams.jpg" alt="Living room with exposed timber beams and rustic hardwood floors in a restored Round Hill home" />
+            </div>
+            <div class="project__body">
+              <p class="project__place">Round Hill, Virginia</p>
+              <h3 class="headline headline--sm project__name">Historic restoration</h3>
+              <p class="project__desc">New construction with the charm of a historic home — exposed beams, rustic hardwood, granite and white cabinetry across three beds and two and a half baths.</p>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project__media">
+              <img src="assets/img/interior-great-room.jpg" alt="Great room with tall windows and warm natural light in a Leesburg custom home" />
+            </div>
+            <div class="project__body">
+              <p class="project__place">Leesburg, Virginia</p>
+              <h3 class="headline headline--sm project__name">Charmed living on 3+ acres</h3>
+              <p class="project__desc">A custom home built with room to breathe, settled on more than three acres just outside town.</p>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project__media">
+              <img src="assets/img/exterior-farmhouse-winter.jpg" alt="Modern farmhouse exterior on an elevated lot in Clifton, Virginia, in winter" />
+            </div>
+            <div class="project__body">
+              <p class="project__place">Clifton, Virginia</p>
+              <h3 class="headline headline--sm project__name">Modern farmhouse</h3>
+              <p class="project__desc">Six beds and seven baths on an elevated five-acre lot — a modern farmhouse built to be lived in for a long time.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== §3 Why work with us — the centrepiece ===================== -->
+    <section class="why section" id="why">
+      <div class="container">
+        <div class="why__head reveal">
+          <p class="eyebrow">Why work with us</p>
+          <h2 class="headline">You build with Brian, not a company.</h2>
+          <p class="lede muted why__intro">The reason to choose Total Build isn't a process or a brochure. It's the person who sits at your table, walks your lot, and runs your site.</p>
+        </div>
+
+        <div class="owner__grid reveal">
+          <div>
+            <div class="portrait" role="img" aria-label="Portrait of Brian Smith — photograph forthcoming">
+              <span class="portrait__center" aria-hidden="true">B</span>
+              <div class="portrait__frame" aria-hidden="true"></div>
+              <span class="portrait__label">Portrait — Brian Smith</span>
+              <span class="portrait__note">Photograph forthcoming</span>
+            </div>
+            <p class="owner__caption">Brian Smith · Founder &amp; General Contractor · Leesburg, Virginia</p>
+          </div>
+
+          <div class="owner__body">
+            <img class="owner__stamp" src="assets/logo/tb-seal-onyx.svg" alt="" aria-hidden="true" />
+            <p class="owner-promise">You work directly with Brian. We only take on a few homes a year.</p>
+            <p class="owner__meta">Brian founded the company that became Total Build in 2008 and has personally estimated and managed upwards of two thousand construction and remodeling projects. He keeps the schedule short on purpose, so every home gets the builder — not a project number.</p>
+            <blockquote class="owner-quote">
+              I left insurance restoration because the industry's approach had become an <span class="hl">assembly line</span> — transactional, and often thankless.
+              <cite>Brian Smith, founder</cite>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="values reveal">
+          <div class="value">
+            <p class="value__name">Quality</p>
+            <p class="value__desc">Built the way it should be built — down to the framing you'll never see.</p>
+          </div>
+          <div class="value">
+            <p class="value__name">Communication</p>
+            <p class="value__desc">You hear it straight from Brian, and you always know where the job stands.</p>
+          </div>
+          <div class="value">
+            <p class="value__name">Trust</p>
+            <p class="value__desc">A clean site, an honest schedule, and our name on the work.</p>
+          </div>
+          <div class="value">
+            <p class="value__name">People</p>
+            <p class="value__desc">We build for the family who'll live in the home, a few homes a year.</p>
+          </div>
+        </div>
+
+        <p class="lineage-line reveal">Brian is the fourth generation of Smith builders; his great-grandfather began contracting in 1910. <a class="story-link" href="#">Read our story</a></p>
+      </div>
+    </section>
+
+    <!-- ===================== §4 Gallery + reviews ===================== -->
+    <section class="section" id="gallery">
+      <div class="container">
+        <div class="gallery__head reveal">
+          <p class="eyebrow">Inside the homes</p>
+          <h2 class="headline">A closer look, and a few words from the families.</h2>
+          <p class="lede muted gallery__intro">Rooms, details, and the work in progress — with what two of our clients had to say woven through.</p>
+        </div>
+
+        <div class="mosaic reveal">
+          <!-- Testimonial 1 (onyx tile) -->
+          <figure class="m-quote">
+            <div class="m-quote__mark" aria-hidden="true">&ldquo;</div>
+            <blockquote>The work his crew did on our house was fantastic. They were professional, on time, neat and trustworthy. I just can not say enough positive things about Brian and his company. Do not hesitate using Total Build for your remodeling, you will be so happy with the results.</blockquote>
+            <cite>Kathy · Sterling, VA</cite>
+          </figure>
+
+          <div class="m-tile m-tall">
+            <img src="assets/img/craft-worker.jpg" alt="A Total Build craftsman at work on the framing of a custom home" />
+          </div>
+          <div class="m-tile m-tall">
+            <img src="assets/img/interior-kitchen.jpg" alt="Custom kitchen with clean cabinetry and stone counters" />
+          </div>
+
+          <div class="m-tile m-wide">
+            <img src="assets/img/interior-double-height.jpg" alt="Double-height living space with a wall of windows in a custom home" />
+          </div>
+          <div class="m-tile">
+            <img src="assets/img/interior-stair-atrium.jpg" alt="Staircase rising through a light-filled atrium" />
+          </div>
+          <div class="m-tile">
+            <img src="assets/img/detail-boards.jpg" alt="Close detail of stacked timber boards and wood grain" />
+          </div>
+
+          <div class="m-tile">
+            <img src="assets/img/interior-dining.jpg" alt="Dining room set for a meal with warm natural light" />
+          </div>
+          <div class="m-tile">
+            <img src="assets/img/interior-open-living.jpg" alt="Open living area flowing into the kitchen of a custom home" />
+          </div>
+
+          <!-- Testimonial 2 (onyx tile) -->
+          <figure class="m-quote">
+            <div class="m-quote__mark" aria-hidden="true">&ldquo;</div>
+            <blockquote>We have done two projects with Total Build — both finished early and we never even knew our house was under construction while it was going, they keep the work space pristine.</blockquote>
+            <cite>Erik · Alexandria, VA</cite>
+          </figure>
+
+          <div class="m-tile">
+            <img src="assets/img/interior-warm-living.jpg" alt="Warm living room with soft light and lived-in texture" />
+          </div>
+          <div class="m-tile">
+            <img src="assets/img/craft-framing-interior.jpg" alt="Interior framing of a home under construction" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== §5 How it works ===================== -->
+    <section class="process section" id="process">
+      <div class="container">
+        <div class="process__head reveal">
+          <p class="eyebrow">How it works</p>
+          <h2 class="headline">Four steps, and I'm there for all of them.</h2>
+        </div>
+        <div class="steps">
+          <div class="step reveal">
+            <p class="step__num">01</p>
+            <h3 class="headline headline--sm step__title">We sit down</h3>
+            <p class="step__desc">We start at the table. You tell me how you want to live; I tell you honestly what it takes to build it.</p>
+          </div>
+          <div class="step reveal">
+            <p class="step__num">02</p>
+            <h3 class="headline headline--sm step__title">We draw it</h3>
+            <p class="step__desc">We shape the plan together until the drawings match the home in your head — before a single board is cut.</p>
+          </div>
+          <div class="step reveal">
+            <p class="step__num">03</p>
+            <h3 class="headline headline--sm step__title">We build it</h3>
+            <p class="step__desc">My crew keeps the site clean and the schedule honest. You'll always know where things stand, from me.</p>
+          </div>
+          <div class="step reveal">
+            <p class="step__num">04</p>
+            <h3 class="headline headline--sm step__title">We hand you the keys</h3>
+            <p class="step__desc">We walk it together, we make it right, and then it's yours — built to live in for a long time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== §6 Closing CTA ===================== -->
+    <section class="closing" id="contact">
+      <img class="closing__img" src="assets/img/craft-framing-sky.jpg" alt="The frame of a new custom home rising against an open sky" />
+      <div class="closing__scrim"></div>
+      <div class="container closing__inner reveal">
+        <p class="eyebrow eyebrow--on-dark">Let's begin</p>
+        <h2 class="display">Let's build yours.</h2>
+        <p class="lede closing__sub">Tell me about the home you have in mind. If it's a fit for the year ahead, we'll sit down.</p>
+        <div class="closing__actions">
+          <a class="btn btn--on-dark" href="contact.html">Start a conversation</a>
+        </div>
+        <p class="closing__contact">
+          <a href="tel:+17036349211">(703) 634-9211</a> &nbsp;·&nbsp; <a href="mailto:info@totalbuild.com">info@totalbuild.com</a> &nbsp;·&nbsp; Leesburg, Virginia
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="site-footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <img class="footer__wordmark" src="assets/logo/tb-wordmark-cream.svg" alt="Total Build" />
+        <p class="footer__blurb">Custom homes across Loudoun County and Western Loudoun, Virginia. Built by Brian Smith, a few at a time.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#top">Home</a></li>
+          <li><a href="#work">Portfolio</a></li>
+          <li><a href="#process">Custom Homes</a></li>
+          <li><a href="#why">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="tel:+17036349211">(703) 634-9211</a></li>
+          <li><a href="mailto:info@totalbuild.com">info@totalbuild.com</a></li>
+          <li>Leesburg, Virginia</li>
+          <li>
+            <a class="tbr-out" href="https://www.totalbuildrestoration.com" target="_blank" rel="noopener">
+              Total Build Restoration <small>fire, water, storm</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bar">
+      <img class="footer__seal" src="assets/logo/tb-seal-cream.svg" alt="Total Build seal" />
+      <p class="footer__legal">© 2026 Total Build. Leesburg, Virginia.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Progressive enhancement only. Page is fully legible with JS disabled.
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      var reveals = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window) || reveals.length === 0) {
+        reveals.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      reveals.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+</body>
+</html>

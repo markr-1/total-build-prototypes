@@ -1,0 +1,77 @@
+/* ==========================================================================
+   Total Build — Typography Tokens
+   Libre Caslon Text (editorial serif) for storytelling + display.
+   Public Sans (institutional sans) for body, UI, labels.
+   High-contrast pairing; tighten tracking on large display sizes.
+   ========================================================================== */
+
+:root {
+  /* ---- Families ------------------------------------------------------ */
+  --font-display: 'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+  --font-body:    'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-icon:    'Material Symbols Outlined';
+
+  /* ---- Display / headline scale (serif) ------------------------------ */
+  /* display-lg */
+  --type-display-size:   72px;
+  --type-display-lh:     80px;
+  --type-display-ls:     -0.02em;
+  /* display-lg-mobile */
+  --type-display-m-size: 48px;
+  --type-display-m-lh:   56px;
+  --type-display-m-ls:   -0.01em;
+  /* headline-xl */
+  --type-h-xl-size: 48px;
+  --type-h-xl-lh:   56px;
+  /* headline-lg */
+  --type-h-lg-size: 32px;
+  --type-h-lg-lh:   40px;
+  /* headline-md */
+  --type-h-md-size: 24px;
+  --type-h-md-lh:   32px;
+
+  /* ---- Body scale (sans) --------------------------------------------- */
+  --type-body-lg-size: 18px;
+  --type-body-lg-lh:   28px;
+  --type-body-md-size: 16px;
+  --type-body-md-lh:   24px;
+
+  /* ---- Labels (sans, uppercase, tracked) ----------------------------- */
+  --type-label-bold-size: 12px;
+  --type-label-bold-lh:   16px;
+  --type-label-bold-ls:   0.1em;   /* widest */
+  --type-eyebrow-ls:      0.3em;   /* eyebrow / kicker tracking */
+  --type-label-sm-size:   12px;
+  --type-label-sm-lh:     16px;
+
+  /* ---- Weights ------------------------------------------------------- */
+  --fw-light:   300; /* @kind font */
+  --fw-regular: 400; /* @kind font */
+  --fw-medium:  500; /* @kind font */
+  --fw-bold:    700; /* @kind font */
+}
+
+/* Convenience type classes — optional helpers mirroring the scale. */
+.tb-display      { font-family: var(--font-display); font-weight: 400; font-size: var(--type-display-size);   line-height: var(--type-display-lh);   letter-spacing: var(--type-display-ls); }
+.tb-headline-xl  { font-family: var(--font-display); font-weight: 400; font-size: var(--type-h-xl-size);      line-height: var(--type-h-xl-lh); }
+.tb-headline-lg  { font-family: var(--font-display); font-weight: 400; font-size: var(--type-h-lg-size);      line-height: var(--type-h-lg-lh); }
+.tb-headline-md  { font-family: var(--font-display); font-weight: 400; font-size: var(--type-h-md-size);      line-height: var(--type-h-md-lh); }
+.tb-body-lg      { font-family: var(--font-body); font-weight: 400; font-size: var(--type-body-lg-size); line-height: var(--type-body-lg-lh); }
+.tb-body-md      { font-family: var(--font-body); font-weight: 400; font-size: var(--type-body-md-size); line-height: var(--type-body-md-lh); }
+.tb-label        { font-family: var(--font-body); font-weight: 700; font-size: var(--type-label-bold-size); line-height: var(--type-label-bold-lh); letter-spacing: var(--type-label-bold-ls); text-transform: uppercase; }
+.tb-eyebrow      { font-family: var(--font-body); font-weight: 700; font-size: var(--type-label-bold-size); line-height: var(--type-label-bold-lh); letter-spacing: var(--type-eyebrow-ls); text-transform: uppercase; }
+
+/* Material Symbols base */
+.material-symbols-outlined {
+  font-family: var(--font-icon);
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+}

@@ -1,0 +1,24 @@
+/* ==========================================================================
+   Total Build — Elevation & Motion Tokens
+   The system REJECTS heavy shadows. Depth = tonal layering + 1px rules.
+   Only floating chrome (sticky header) gets an ultra-diffused ambient shadow.
+   ========================================================================== */
+
+:root {
+  /* ---- Shadows (use sparingly) --------------------------------------- */
+  --shadow-none: none;
+  /* "Architectural Ambient" — for the sticky header / rare floating layer */
+  --shadow-ambient: 0px 10px 40px rgba(15, 27, 38, 0.04);
+  /* slightly stronger lift for the active nav state */
+  --shadow-nav:     0px 4px 20px rgba(15, 27, 38, 0.06);
+
+  /* ---- Motion -------------------------------------------------------- */
+  --ease-standard:  cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */ /* calm, refined ease-out */
+  --dur-fast:   300ms; /* @kind other */
+  --dur-medium: 500ms; /* @kind other */
+  --dur-slow:   800ms; /* @kind other */
+
+  /* ---- Image treatment ----------------------------------------------- */
+  --img-aspect-card: 3 / 2;  /* @kind other */ /* cards always 3:2 */
+  --overlay-hero:    linear-gradient(to right, rgba(15,27,38,0.60), rgba(15,27,38,0)); /* @kind other */ /* hero scrim */
+}

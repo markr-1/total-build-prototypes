@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start a conversation — Total Build</title>
+<meta name="description" content="Tell us about the home you want to build. We'll be in touch personally within a couple of days.">
+<link rel="stylesheet" href="../Design-System/styles.css">
+<!--
+  PROTOTYPE NOTE: this flow does not submit anywhere. In production it posts to
+  info@totalbuild.com. The no-JS fallback below degrades to a single stacked form
+  with a mailto action so the page is never a dead end.
+-->
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--surface-page);
+    color: var(--text-strong);
+    font-family: var(--font-body);
+    font-size: var(--type-body-md-size);
+    line-height: var(--type-body-md-lh);
+  }
+  a { color: inherit; }
+
+  /* ===================================================================
+     Shell — a photograph on the left, the conversation on the right.
+     =================================================================== */
+  .shell { display: grid; grid-template-columns: 42% 1fr; min-height: 100vh; }
+  @media (max-width: 900px) { .shell { grid-template-columns: 1fr; min-height: 0; } }
+
+  /* ---- Left: the quiet panel ---- */
+  .aside {
+    position: relative; overflow: hidden;
+    background: var(--surface-inverse);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: var(--space-6);
+  }
+  .aside__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .aside__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(15,27,38,0.80) 0%, rgba(15,27,38,0.62) 38%, rgba(15,27,38,0.78) 62%, rgba(15,27,38,0.92) 100%); }
+  /* Lift only the CONTENT above the photo. Scoping this to `.aside > *` would
+     also reset the image and scrim to position:relative and drop them into flow. */
+  .aside > .aside__link,
+  .aside > .aside__body,
+  .aside > .aside__foot { position: relative; z-index: 2; }
+  .aside__wordmark { height: 18px; width: auto; }
+  .aside__quote {
+    max-width: 30ch;
+    font-family: var(--font-display);
+    font-size: var(--type-h-lg-size);
+    line-height: var(--type-h-lg-lh);
+    font-weight: var(--fw-regular);
+    color: var(--text-on-inverse);
+    margin: 0 0 var(--space-3);
+  }
+  /* Stone gray fails against the bright areas of the photograph. Cream at 0.86. */
+  .aside__sub { color: var(--tb-architectural-cream); opacity: 0.86; max-width: 34ch; margin: 0; font-size: 14px; line-height: 24px; }
+  .aside__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+  .aside__seal { width: 40px; height: 40px; opacity: 0.5; }
+  .aside__contact { font-size: 12px; letter-spacing: 0.06em; color: var(--tb-architectural-cream); opacity: 0.78; text-align: right; line-height: 20px; }
+  .aside__contact a { text-decoration: none; }
+  .aside__contact a:hover { color: var(--accent); }
+  @media (max-width: 900px) {
+    .aside { padding: var(--space-4); min-height: 260px; }
+    .aside__quote { font-size: var(--type-h-md-size); line-height: var(--type-h-md-lh); }
+  }
+
+  /* ---- Right: the conversation ---- */
+  .main { display: flex; flex-direction: column; padding: var(--space-6) var(--space-8); }
+  @media (max-width: 900px) { .main { padding: var(--space-5) var(--margin-mobile) var(--space-8); } }
+  .main__top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+  .backhome {
+    font-size: var(--type-label-bold-size); text-transform: uppercase;
+    letter-spacing: var(--type-label-bold-ls); font-weight: var(--fw-bold);
+    color: var(--text-muted); text-decoration: none;
+  }
+  .backhome:hover { color: var(--accent); }
+  .counter { font-size: var(--type-label-bold-size); letter-spacing: var(--type-label-bold-ls); color: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .counter b { color: var(--text-strong); font-weight: var(--fw-bold); }
+
+  .progress { height: 1px; background: var(--border-default); margin: var(--space-3) 0 var(--space-8); }
+  .progress__fill { height: 1px; background: var(--accent); width: 16.6%; transition: width var(--dur-medium) var(--ease-standard); }
+
+  .stage { flex: 1; display: flex; align-items: center; }
+  .stage__inner { width: 100%; max-width: 620px; }
+
+  /* ---- A question ---- */
+  .step { display: none; }
+  .step.is-active { display: block; animation: rise var(--dur-medium) var(--ease-standard) both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .step.is-active { animation: none; } .progress__fill { transition: none; } }
+
+  .eyebrow { font-size: var(--type-label-bold-size); text-transform: uppercase; letter-spacing: var(--type-eyebrow-ls); color: var(--accent); margin: 0 0 var(--space-3); }
+  .q {
+    font-family: var(--font-display); font-weight: var(--fw-regular);
+    font-size: 40px; line-height: 48px; letter-spacing: -0.01em;
+    margin: 0 0 var(--space-2); border: 0; padding: 0;
+  }
+  @media (max-width: 640px) { .q { font-size: 30px; line-height: 38px; } }
+  .q-help { color: var(--text-muted); margin: 0 0 var(--space-5); max-width: 52ch; }
+
+  fieldset { border: 0; margin: 0; padding: 0; }
+
+  /* ---- Options: sharp rows, never pills ---- */
+  .opts { display: grid; gap: 1px; background: var(--border-default); border: 1px solid var(--border-default); }
+  .opt { position: relative; background: var(--surface-raised); }
+  .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .opt label {
+    display: flex; align-items: baseline; gap: var(--space-3);
+    padding: 20px var(--space-4); cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard);
+  }
+  .opt label:hover { background: var(--surface-sunken); }
+  .opt__key { font-size: var(--type-label-bold-size); letter-spacing: var(--type-label-bold-ls); color: var(--text-muted); font-weight: var(--fw-bold); min-width: 1.4em; }
+  .opt__text { font-size: var(--type-body-lg-size); line-height: 26px; }
+  .opt input:checked + label { background: var(--surface-inverse); color: var(--text-on-inverse); }
+  .opt input:checked + label .opt__key { color: var(--accent); }
+  .opt input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+  /* ---- Text fields: bottom rule only, label above ---- */
+  .fields { display: grid; gap: var(--space-5); }
+  .fields--2 { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 640px) { .fields--2 { grid-template-columns: 1fr; } }
+  .field label {
+    display: block; font-size: var(--type-label-bold-size); font-weight: var(--fw-bold);
+    text-transform: uppercase; letter-spacing: var(--type-label-bold-ls);
+    color: var(--text-muted); margin-bottom: var(--space-1);
+  }
+  .field input, .field textarea {
+    width: 100%; border: 0; border-bottom: 1px solid var(--border-default);
+    background: transparent; border-radius: var(--radius);
+    font-family: var(--font-body); font-size: var(--type-body-lg-size);
+    color: var(--text-strong); padding: 8px 0; resize: vertical;
+  }
+  .field input:focus, .field textarea:focus { outline: 0; border-bottom-color: var(--accent); }
+  .field input::placeholder, .field textarea::placeholder { color: var(--tb-stone-gray); opacity: .7; }
+  .reveal { margin-top: var(--space-4); }
+  .reveal[hidden] { display: none; }
+
+  /* ---- A calm inline note (the renovation nudge) ---- */
+  .note {
+    margin-top: var(--space-4); padding: var(--space-3) var(--space-4);
+    border-left: 2px solid var(--accent); background: var(--surface-sunken);
+    font-size: 14px; line-height: 24px; color: var(--text-body);
+  }
+  .note[hidden] { display: none; }
+  .note a { color: var(--accent-ink, var(--tb-bronze-strong)); }
+
+  .sidenote { margin-top: var(--space-4); font-size: 13px; line-height: 22px; color: var(--text-muted); }
+  .sidenote a { text-underline-offset: 3px; }
+
+  /* ---- Navigation ---- */
+  .nav { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8); }
+  .btn {
+    font-family: var(--font-body); font-size: var(--type-label-bold-size); font-weight: var(--fw-bold);
+    text-transform: uppercase; letter-spacing: var(--type-label-bold-ls);
+    padding: 18px 32px; border-radius: var(--radius); border: 1px solid transparent; cursor: pointer;
+    background: var(--tb-deep-onyx); color: var(--tb-architectural-cream);
+    transition: background var(--dur-fast) var(--ease-standard);
+  }
+  .btn:hover { background: var(--accent); }
+  .btn:disabled { opacity: .35; cursor: not-allowed; }
+  .btn:disabled:hover { background: var(--tb-deep-onyx); }
+  .btn-back {
+    background: transparent; color: var(--text-muted); border: 0; padding: 18px 0; cursor: pointer;
+    font-size: var(--type-label-bold-size); text-transform: uppercase; letter-spacing: var(--type-label-bold-ls); font-weight: var(--fw-bold);
+  }
+  .btn-back:hover { color: var(--text-strong); }
+  .btn-back[hidden] { visibility: hidden; display: block; }
+  .hint { margin-left: auto; font-size: 12px; color: var(--text-muted); letter-spacing: 0.04em; }
+  @media (max-width: 640px) { .hint { display: none; } }
+  .err { color: var(--tb-error); font-size: 13px; margin-top: var(--space-3); min-height: 20px; }
+
+  /* ---- Confirmation ---- */
+  .done { display: none; }
+  .done.is-active { display: block; animation: rise var(--dur-slow) var(--ease-standard) both; }
+  .done__h { font-family: var(--font-display); font-weight: var(--fw-regular); font-size: 44px; line-height: 54px; margin: 0 0 var(--space-4); max-width: 18ch; }
+  @media (max-width: 640px) { .done__h { font-size: 30px; line-height: 40px; } }
+  .done__p { color: var(--text-body); max-width: 54ch; font-size: var(--type-body-lg-size); line-height: var(--type-body-lg-lh); margin: 0 0 var(--space-5); }
+  .recap { border-top: 1px solid var(--border-default); margin-top: var(--space-6); padding-top: var(--space-4); }
+  .recap h2 { font-size: var(--type-label-bold-size); text-transform: uppercase; letter-spacing: var(--type-label-bold-ls); color: var(--text-muted); font-weight: var(--fw-bold); margin: 0 0 var(--space-3); }
+  .recap dl { display: grid; grid-template-columns: 12em 1fr; gap: var(--space-2) var(--space-4); margin: 0; font-size: 14px; line-height: 24px; }
+  @media (max-width: 640px) { .recap dl { grid-template-columns: 1fr; gap: 2px var(--space-2); } .recap dd { margin-bottom: var(--space-2); } }
+  .recap dt { color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-size: 11px; padding-top: 4px; }
+  .recap dd { margin: 0; color: var(--text-strong); }
+  .done__seal { width: 48px; height: 48px; margin-bottom: var(--space-5); display: block; }
+
+  /* ---- No-JS: show everything, one honest long form ---- */
+  .nojs-submit { display: none; }
+</style>
+<noscript><style>
+  .step { display: block !important; margin-bottom: var(--space-12); }
+  .nav, .progress, .counter, .hint { display: none !important; }
+  .stage { display: block; padding-block: var(--space-6); }
+  .stage__inner { max-width: 620px; }
+  .reveal, .note { display: block !important; }
+  .nojs-submit { display: block; margin-bottom: var(--space-16); }
+</style></noscript>
+<style>#pb{position:relative;z-index:9999;display:flex;align-items:center;justify-content:center;gap:16px;background:#0F1B26;color:#F9F7F5;font-family:"Public Sans",system-ui,sans-serif;font-size:12px;letter-spacing:.06em;padding:10px 16px;text-align:center;border-radius:0}#pb b{color:#CA7B41;font-weight:700;text-transform:uppercase;letter-spacing:.1em}#pb button{background:transparent;border:1px solid rgba(249,247,245,.4);color:#F9F7F5;font:inherit;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:0;cursor:pointer}#pb button:hover{background:#CA7B41;border-color:#CA7B41}(max-width:640px){#pb{font-size:11px;padding:8px 12px}}</style>
+</head>
+<body>
+<div id="pb"><span><b>Prototype</b> &mdash; work in progress. Photography is placeholder stock; these are not Total Build homes.</span><button type="button" onclick="document.getElementById('pb').remove()" aria-label="Dismiss">Dismiss</button></div>
+
+<form class="shell" id="flow" action="mailto:info@totalbuild.com" method="post" enctype="text/plain" novalidate>
+
+  <!-- ============ Left: the quiet panel ============ -->
+  <aside class="aside">
+    <img class="aside__img" src="assets/img/interior-living-beams.jpg" alt="A living room with exposed beams and morning light">
+    <div class="aside__scrim"></div>
+
+    <a class="aside__link" href="index.html" aria-label="Total Build — back to the prototypes">
+      <img class="aside__wordmark" src="assets/logo/tb-wordmark-cream.svg" alt="Total Build">
+    </a>
+
+    <div class="aside__body">
+      <p class="aside__quote">This is where it starts &mdash; a conversation, not a form.</p>
+      <p class="aside__sub">Tell us what you have in mind. Brian reads every one of these, and we only
+        take on a few homes a year.</p>
+    </div>
+
+    <div class="aside__foot">
+      <img class="aside__seal" src="assets/logo/tb-seal-cream.svg" alt="">
+      <div class="aside__contact">
+        <a href="tel:+17036349211">(703) 634-9211</a><br>
+        <a href="mailto:info@totalbuild.com">info@totalbuild.com</a><br>
+        Leesburg, Virginia
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ Right: the interview ============ -->
+  <main class="main">
+    <div class="main__top">
+      <a class="backhome" href="index.html">&larr; Back</a>
+      <p class="counter" id="counter"><b id="stepNum">01</b> / 06</p>
+    </div>
+    <div class="progress"><div class="progress__fill" id="bar"></div></div>
+
+    <div class="stage">
+      <div class="stage__inner">
+
+        <!-- ---------- 1 ---------- -->
+        <section class="step is-active" data-step="1" data-name="project">
+          <fieldset role="radiogroup" aria-labelledby="q1">
+            <p class="eyebrow">The project</p>
+            <h2 class="q" id="q1">What are you dreaming of building?</h2>
+            <p class="q-help">There is no wrong answer here. We are simply trying to understand the shape of it.</p>
+            <div class="opts">
+              <div class="opt"><input type="radio" id="p1" name="project" value="A new custom home"><label for="p1"><span class="opt__key">A</span><span class="opt__text">A new custom home</span></label></div>
+              <div class="opt"><input type="radio" id="p2" name="project" value="A major renovation or addition"><label for="p2"><span class="opt__key">B</span><span class="opt__text">A major renovation or addition</span></label></div>
+              <div class="opt"><input type="radio" id="p3" name="project" value="Not sure yet"><label for="p3"><span class="opt__key">C</span><span class="opt__text">Not sure yet</span></label></div>
+            </div>
+            <p class="note" id="renoNote" hidden>
+              We take on large-scale renovations and additions as well as new builds. A few of the
+              questions ahead are written for new homes &mdash; answer what fits, and tell us the rest
+              at the end.
+            </p>
+            <p class="sidenote">
+              Storm, fire, or water damage? That is our sister company,
+              <a href="https://www.totalbuildrestoration.com">Total Build Restoration</a>.
+            </p>
+          </fieldset>
+        </section>
+
+        <!-- ---------- 2 ---------- -->
+        <section class="step" data-step="2" data-name="where">
+          <fieldset role="radiogroup" aria-labelledby="q2">
+            <p class="eyebrow">The place</p>
+            <h2 class="q" id="q2">Where would you like to build?</h2>
+            <p class="q-help">We build across Loudoun County, and we know its ground well.</p>
+            <div class="opts">
+              <div class="opt"><input type="radio" id="w1" name="where" value="Leesburg"><label for="w1"><span class="opt__key">A</span><span class="opt__text">Leesburg</span></label></div>
+              <div class="opt"><input type="radio" id="w2" name="where" value="Elsewhere in Loudoun County"><label for="w2"><span class="opt__key">B</span><span class="opt__text">Elsewhere in Loudoun County</span></label></div>
+              <div class="opt"><input type="radio" id="w3" name="where" value="Somewhere else"><label for="w3"><span class="opt__key">C</span><span class="opt__text">Somewhere else</span></label></div>
+            </div>
+            <div class="reveal field" id="whereOther" hidden>
+              <label for="whereText">Where, roughly?</label>
+              <input type="text" id="whereText" name="where_other" placeholder="Town, county, or just the general area">
+            </div>
+          </fieldset>
+        </section>
+
+        <!-- ---------- 3 ---------- -->
+        <section class="step" data-step="3" data-name="lot">
+          <fieldset role="radiogroup" aria-labelledby="q3">
+            <p class="eyebrow">The land</p>
+            <h2 class="q" id="q3">Do you already own the lot?</h2>
+            <p class="q-help">If you do not, that is common. Finding the right piece of land is part of the work.</p>
+            <div class="opts">
+              <div class="opt"><input type="radio" id="l1" name="lot" value="Yes, we own it"><label for="l1"><span class="opt__key">A</span><span class="opt__text">Yes, we own it</span></label></div>
+              <div class="opt"><input type="radio" id="l2" name="lot" value="Not yet"><label for="l2"><span class="opt__key">B</span><span class="opt__text">Not yet</span></label></div>
+              <div class="opt"><input type="radio" id="l3" name="lot" value="We are actively looking"><label for="l3"><span class="opt__key">C</span><span class="opt__text">We are actively looking</span></label></div>
+            </div>
+          </fieldset>
+        </section>
+
+        <!-- ---------- 4 ---------- -->
+        <section class="step" data-step="4" data-name="budget">
+          <fieldset role="radiogroup" aria-labelledby="q4">
+            <p class="eyebrow">The investment</p>
+            <h2 class="q" id="q4">What range are you building in?</h2>
+            <p class="q-help">We ask because it is the only way to have an honest conversation about what is
+              possible. A range is enough &mdash; nothing here is a commitment.</p>
+            <div class="opts">
+              <div class="opt"><input type="radio" id="b1" name="budget" value="Under $750,000"><label for="b1"><span class="opt__key">A</span><span class="opt__text">Under $750,000</span></label></div>
+              <div class="opt"><input type="radio" id="b2" name="budget" value="$750,000 to $1.2M"><label for="b2"><span class="opt__key">B</span><span class="opt__text">$750,000 &ndash; $1.2M</span></label></div>
+              <div class="opt"><input type="radio" id="b3" name="budget" value="$1.2M to $2M"><label for="b3"><span class="opt__key">C</span><span class="opt__text">$1.2M &ndash; $2M</span></label></div>
+              <div class="opt"><input type="radio" id="b4" name="budget" value="$2M to $3.5M"><label for="b4"><span class="opt__key">D</span><span class="opt__text">$2M &ndash; $3.5M</span></label></div>
+              <div class="opt"><input type="radio" id="b5" name="budget" value="Above $3.5M"><label for="b5"><span class="opt__key">E</span><span class="opt__text">Above $3.5M</span></label></div>
+              <div class="opt"><input type="radio" id="b6" name="budget" value="I would welcome guidance on this"><label for="b6"><span class="opt__key">F</span><span class="opt__text">I would welcome guidance on this</span></label></div>
+            </div>
+          </fieldset>
+        </section>
+
+        <!-- ---------- 5 ---------- -->
+        <section class="step" data-step="5" data-name="timing">
+          <fieldset role="radiogroup" aria-labelledby="q5">
+            <p class="eyebrow">The timing</p>
+            <h2 class="q" id="q5">When would you like to begin?</h2>
+            <p class="q-help">Good homes take time to plan. Early conversations are the useful ones.</p>
+            <div class="opts">
+              <div class="opt"><input type="radio" id="t1" name="timing" value="This year"><label for="t1"><span class="opt__key">A</span><span class="opt__text">This year</span></label></div>
+              <div class="opt"><input type="radio" id="t2" name="timing" value="Next year"><label for="t2"><span class="opt__key">B</span><span class="opt__text">Next year</span></label></div>
+              <div class="opt"><input type="radio" id="t3" name="timing" value="Just exploring for now"><label for="t3"><span class="opt__key">C</span><span class="opt__text">Just exploring for now</span></label></div>
+            </div>
+          </fieldset>
+        </section>
+
+        <!-- ---------- 6 ---------- -->
+        <section class="step" data-step="6" data-name="you">
+          <fieldset aria-labelledby="q6">
+            <p class="eyebrow">You</p>
+            <h2 class="q" id="q6">And how do we reach you?</h2>
+            <p class="q-help">This goes to Brian directly.</p>
+            <div class="fields">
+              <div class="fields fields--2">
+                <div class="field"><label for="name">Your name</label><input type="text" id="name" name="name" autocomplete="name" required></div>
+                <div class="field"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="Optional"></div>
+              </div>
+              <div class="field"><label for="email">Email</label><input type="email" id="email" name="email" autocomplete="email" required></div>
+              <div class="field">
+                <label for="message">Anything you would like us to know</label>
+                <textarea id="message" name="message" rows="3" placeholder="The lot, the shape of the house, a photograph you cannot stop thinking about."></textarea>
+              </div>
+            </div>
+          </fieldset>
+          <div class="nojs-submit">
+            <button class="btn" type="submit">Send to Total Build</button>
+          </div>
+        </section>
+
+        <!-- ---------- Confirmation ---------- -->
+        <section class="done" id="done" aria-live="polite">
+          <img class="done__seal" src="assets/logo/tb-seal-onyx.svg" alt="">
+          <p class="eyebrow">Thank you</p>
+          <h1 class="done__h">We will be in touch personally, within a couple of days.</h1>
+          <p class="done__p">Not an auto-reply, and not a salesperson. Brian reads every one of these
+            himself, because he is the one who would build your house. We only take on a few homes a
+            year, and that is the whole reason we can answer this way.</p>
+          <div class="recap">
+            <h2>What you told us</h2>
+            <dl id="recap"></dl>
+          </div>
+          <div class="nav">
+            <a class="btn" href="index.html" style="text-decoration:none;display:inline-block">Back to the prototypes</a>
+          </div>
+        </section>
+
+        <!-- ---------- Controls ---------- -->
+        <div class="nav" id="nav">
+          <button class="btn" type="button" id="next">Continue</button>
+          <button class="btn-back" type="button" id="back" hidden>&larr; Back</button>
+          <span class="hint">Press <b>Enter</b> to continue</span>
+        </div>
+        <p class="err" id="err" role="alert"></p>
+
+      </div>
+    </div>
+  </main>
+</form>
+
+<script>
+(function () {
+  var form    = document.getElementById('flow');
+  var steps   = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var nav     = document.getElementById('nav');
+  var nextBtn = document.getElementById('next');
+  var backBtn = document.getElementById('back');
+  var bar     = document.getElementById('bar');
+  var stepNum = document.getElementById('stepNum');
+  var counter = document.getElementById('counter');
+  var errEl   = document.getElementById('err');
+  var doneEl  = document.getElementById('done');
+  var total   = steps.length;
+  var i       = 0;
+
+  var LABELS = {
+    project: 'The project', where: 'The place', where_other: 'Specifically',
+    lot: 'The land', budget: 'The investment', timing: 'The timing',
+    name: 'Name', email: 'Email', phone: 'Phone', message: 'Notes'
+  };
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function render() {
+    steps.forEach(function (s, n) { s.classList.toggle('is-active', n === i); });
+    stepNum.textContent = pad(i + 1);
+    bar.style.width = ((i + 1) / total * 100) + '%';
+    backBtn.hidden = (i === 0);
+    nextBtn.textContent = (i === total - 1) ? 'Send to Brian' : 'Continue';
+    errEl.textContent = '';
+    var focusable = steps[i].querySelector('input[type=radio], input[type=text], input[type=email]');
+    if (focusable) { try { focusable.focus({ preventScroll: true }); } catch (e) { focusable.focus(); } }
+  }
+
+  function valueOf(name) {
+    var el = form.querySelector('[name="' + name + '"]:checked') || form.querySelector('[name="' + name + '"]');
+    return el ? el.value.trim() : '';
+  }
+
+  function validate() {
+    var step = steps[i];
+    var name = step.getAttribute('data-name');
+    if (name === 'you') {
+      if (!valueOf('name')) { return 'Please tell us your name.'; }
+      var email = valueOf('email');
+      if (!email || email.indexOf('@') < 1 || email.indexOf('.') < 0) { return 'Please give us an email address we can reply to.'; }
+      return '';
+    }
+    if (!form.querySelector('[name="' + name + '"]:checked')) {
+      return name === 'budget'
+        ? 'A range, even a rough one, is what lets us give you a straight answer.'
+        : 'Please choose one to continue.';
+    }
+    if (name === 'where' && valueOf('where') === 'Somewhere else' && !valueOf('where_other')) {
+      return 'Whereabouts?';
+    }
+    return '';
+  }
+
+  function advance() {
+    var problem = validate();
+    if (problem) { errEl.textContent = problem; return; }
+    if (i === total - 1) { finish(); return; }
+    i++; render();
+  }
+
+  function finish() {
+    var recap = document.getElementById('recap');
+    recap.innerHTML = '';
+    ['project', 'where', 'where_other', 'lot', 'budget', 'timing', 'name', 'email', 'phone', 'message'].forEach(function (k) {
+      var v = valueOf(k);
+      if (!v) { return; }
+      var dt = document.createElement('dt'); dt.textContent = LABELS[k] || k;
+      var dd = document.createElement('dd'); dd.textContent = v;
+      recap.appendChild(dt); recap.appendChild(dd);
+    });
+    steps.forEach(function (s) { s.classList.remove('is-active'); });
+    nav.style.display = 'none';
+    counter.style.display = 'none';
+    bar.style.width = '100%';
+    errEl.textContent = '';
+    doneEl.classList.add('is-active');
+    window.scrollTo(0, 0);
+    doneEl.focus && doneEl.setAttribute('tabindex', '-1');
+    try { doneEl.focus({ preventScroll: true }); } catch (e) {}
+  }
+
+  nextBtn.addEventListener('click', advance);
+  backBtn.addEventListener('click', function () { if (i > 0) { i--; render(); } });
+
+  // Enter advances, except inside the textarea.
+  form.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') { return; }
+    if (e.target && e.target.tagName === 'TEXTAREA') { return; }
+    e.preventDefault();
+    advance();
+  });
+  form.addEventListener('submit', function (e) { e.preventDefault(); advance(); });
+
+  // Choosing an option clears the error and reveals conditional fields.
+  form.addEventListener('change', function (e) {
+    errEl.textContent = '';
+    if (e.target.name === 'project') {
+      document.getElementById('renoNote').hidden = (e.target.value !== 'A major renovation or addition');
+    }
+    if (e.target.name === 'where') {
+      var other = document.getElementById('whereOther');
+      other.hidden = (e.target.value !== 'Somewhere else');
+      if (!other.hidden) { document.getElementById('whereText').focus(); }
+    }
+  });
+
+  form.setAttribute('novalidate', 'novalidate');
+  render();
+})();
+</script>
+</body>
+</html>
