@@ -763,3 +763,20 @@
 .hero--page .hero__inner { padding-bottom: clamp(40px, 4.5vw, 76px); }
 @media (max-width: 900px) { .hero--page { min-height: 60vh; } }
 @media (max-width: 700px) { .hero--page { min-height: 54vh; } }
+
+/* ---------------------------------------------------------------------
+   Hero scrim, retuned 2026-08-06.
+   The original was calibrated against a dusk stock photograph. Total
+   Build's own photography is bright daylight, so white type was sitting
+   on white siding at poor contrast. Deepen the lower band where the copy
+   actually sits, and leave the top of the image comparatively open.
+   --------------------------------------------------------------------- */
+.hero__scrim {
+  background:
+    linear-gradient(to top,
+      rgba(15,27,38,0.92) 0%,
+      rgba(15,27,38,0.78) 26%,
+      rgba(15,27,38,0.42) 52%,
+      rgba(15,27,38,0.18) 78%,
+      rgba(15,27,38,0.30) 100%);
+}
