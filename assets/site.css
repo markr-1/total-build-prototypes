@@ -780,3 +780,21 @@
       rgba(15,27,38,0.18) 78%,
       rgba(15,27,38,0.30) 100%);
 }
+
+/* ---------------------------------------------------------------------
+   Testimonial band (homepage). Built to hold a filmed testimonial once
+   one exists: swap the <img> in .testimonial__media for a <video> and
+   nothing else has to change.
+   --------------------------------------------------------------------- */
+.testimonial { display: grid; grid-template-columns: 7fr 5fr; gap: var(--space-12); align-items: center; }
+@media (max-width: 900px) { .testimonial { grid-template-columns: 1fr; gap: var(--space-6); } }
+.testimonial__media { aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-sunken); }
+.testimonial__media img, .testimonial__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.testimonial__body .eyebrow { margin-bottom: var(--space-3); }
+.testimonial__quote { margin: var(--space-5) 0 0; padding-left: var(--space-5);
+  border-left: 2px solid var(--accent); }
+.testimonial__quote p { font-family: var(--font-display); font-weight: var(--fw-regular);
+  font-size: var(--type-h-md-size); line-height: var(--type-h-md-lh);
+  color: var(--text-strong); margin: 0 0 var(--space-4); }
+.testimonial__quote cite { font-style: normal; color: var(--text-muted); }
+.testimonial__note { margin-top: var(--space-5); font-size: 14px; }
