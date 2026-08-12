@@ -798,3 +798,126 @@
   color: var(--text-strong); margin: 0 0 var(--space-4); }
 .testimonial__quote cite { font-style: normal; color: var(--text-muted); }
 .testimonial__note { margin-top: var(--space-5); font-size: 14px; }
+
+/* ---------------------------------------------------------------------
+   ABOUT PAGE — 2026-08-08
+   The page had seven sections in a row at identical 128px padding with an
+   identical 96px head gap, and five of them were the same shape (head +
+   prose). Nothing was broken; the uniformity was the problem, so the eye
+   had no hierarchy to hold on to. These three additions give it variation
+   without inventing a second design language.
+   --------------------------------------------------------------------- */
+
+/* Mirror of .split, so a media column can sit right instead of left. The
+   copy stays first in the DOM, which is also the order we want on mobile. */
+.split--reverse { grid-template-columns: 7fr 5fr; }
+/* .split's own stacking rule lives in an earlier @media block, so this
+   modifier -- appended later at equal specificity -- would otherwise win at
+   every width and hold two columns on a phone. It must restack explicitly. */
+@media (max-width: 900px) { .split--reverse { grid-template-columns: 1fr; } }
+
+/* A framed photograph inside a .split column, either side. Matches
+   .flagship__frame's treatment so a photo reads the same wherever it appears.
+   `align-self` (not the parent's `align-items`) does the stretching, so this
+   works in both column orders without a modifier on each: .split sets
+   `align-items: start`, and without this the photo keeps its own short height
+   and leaves a void beside taller copy. */
+.split__frame { overflow: hidden; background: var(--surface-sunken); align-self: stretch; }
+.split__frame img { width: 100%; height: 100%; min-height: 340px; object-fit: cover; display: block; }
+@media (max-width: 900px) { .split__frame img { min-height: 0; aspect-ratio: 3 / 2; } }
+
+/* The pull quote. This existed twice on About as two different inline
+   styles that were meant to match and did not: one carried display type
+   and an opacity, the other only a border. Both are now this, which is
+   .testimonial__quote's treatment promoted to a name anything can use. */
+/* `p.pull` is listed alongside `.pull` deliberately: `.prose p` is (0,1,1) and
+   would otherwise win the margin, leaving the quote with no space above it.
+   This block is appended last, so the equal-specificity tie breaks our way. */
+.pull, p.pull { margin: var(--space-6) 0; padding-left: var(--space-5);
+  border-left: 2px solid var(--accent); }
+/* Typography only. The margin reset below must NOT live here: p.pull is more
+   specific than .pull, so a margin:0 in this rule silently cancels the block's
+   own spacing and jams the quote against the next paragraph. */
+.pull p, p.pull { font-family: var(--font-display); font-weight: var(--fw-regular);
+  font-size: clamp(22px, 2.6vw, var(--type-h-md-size)); line-height: var(--type-h-md-lh);
+  color: inherit; }
+/* Only a <p> nested INSIDE a .pull loses its margin. */
+.pull p { margin: 0; }
+
+/* A head sitting directly on a paragraph. The 96px default is tuned for a
+   grid or a media block beneath it and opens a hole above prose. */
+.sec-head--tight { margin-bottom: var(--space-6); }
+
+/* ---------------------------------------------------------------------
+   FULL-BLEED HERO WITH AN OVERLAY HEADER — 2026-08-08
+   Opt in per page with class="hero-overlay" on <body>. Nothing changes on
+   pages without it.
+
+   On load the hero fills the viewport and runs up underneath a transparent
+   header, so the first photograph is uninterrupted. Scroll a little and the
+   bar fades to its normal solid state.
+   --------------------------------------------------------------------- */
+
+/* nav.js overwrites this with the measured height on load and on resize.
+   The static value is the desktop measurement, so the layout is still right
+   with JavaScript off. */
+:root { --header-h: 78px; }
+
+.hero-overlay .hero:first-child {
+  margin-top: calc(-1 * var(--header-h));
+  min-height: 100vh;
+  min-height: 100svh;          /* phones: excludes the retracting URL bar */
+}
+
+.hero-overlay .site-header {
+  background: transparent;
+  border-bottom-color: transparent;
+  box-shadow: none;
+  transition: background var(--dur-medium) var(--ease-standard),
+              border-color var(--dur-medium) var(--ease-standard);
+}
+
+/* A soft scrim behind the bar only. The hero's own scrim darkens from the
+   bottom, so the top of a bright sky would otherwise leave cream nav text
+   with nothing to sit on. Extends past the header for a gradual fade. */
+.hero-overlay .site-header::before {
+  content: ''; position: absolute; inset: 0 0 -56px 0; z-index: -1;
+  background: linear-gradient(to bottom, rgba(15, 27, 38, 0.58), rgba(15, 27, 38, 0));
+  pointer-events: none;
+  transition: opacity var(--dur-medium) var(--ease-standard);
+}
+
+/* The wordmark is a solid-colour SVG loaded through <img>, so currentColor
+   does not reach it (see the note in References/brand). brightness(0) flattens
+   it to black and invert(1) lifts it to white. */
+.hero-overlay .site-header .wordmark { filter: brightness(0) invert(1); }
+.hero-overlay .site-header .site-nav a,
+.hero-overlay .site-header .header-phone,
+.hero-overlay .site-header .nav-toggle { color: var(--tb-architectural-cream); }
+.hero-overlay .site-header .site-nav a[aria-current="page"] {
+  color: var(--tb-architectural-cream); border-bottom-color: var(--tb-architectural-cream); }
+
+/* Scrolled: back to the normal bar. */
+.hero-overlay .site-header.scrolled {
+  background: var(--surface-page);
+  border-bottom-color: var(--border-default);
+  box-shadow: var(--shadow-ambient);
+}
+.hero-overlay .site-header.scrolled::before { opacity: 0; }
+.hero-overlay .site-header.scrolled .wordmark { filter: none; }
+.hero-overlay .site-header.scrolled .site-nav a,
+.hero-overlay .site-header.scrolled .header-phone,
+.hero-overlay .site-header.scrolled .nav-toggle { color: var(--text-body); }
+.hero-overlay .site-header.scrolled .site-nav a[aria-current="page"] {
+  color: var(--text-strong); border-bottom-color: var(--text-strong); }
+
+/* The open mobile menu needs the solid panel even before you scroll,
+   otherwise the links stack over the photograph. nav.js sets .nav-open on the
+   header; that is used rather than :has() so the rule does not depend on
+   selector support for something this visible. */
+.hero-overlay .site-header.nav-open { background: var(--surface-page); border-bottom-color: var(--border-default); }
+.hero-overlay .site-header.nav-open::before { opacity: 0; }
+.hero-overlay .site-header.nav-open .wordmark { filter: none; }
+.hero-overlay .site-header.nav-open .site-nav a,
+.hero-overlay .site-header.nav-open .header-phone,
+.hero-overlay .site-header.nav-open .nav-toggle { color: var(--text-body); }
