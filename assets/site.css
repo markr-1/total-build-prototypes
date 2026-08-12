@@ -1032,11 +1032,28 @@
    re-asserted below because the blanket rule would otherwise flatten
    them to page white.
    ===================================================================== */
+/* The PHOTOGRAPH holds still, not the whole hero. Fixing the media layer to the
+   viewport rather than making .hero sticky means the hero copy scrolls away
+   normally while the picture stays put, and the gallery then covers both.
+
+   overflow is returned to visible because .hero clips its children by default,
+   and z-index is left at 0 on the media so the opaque sections (z-index 1,
+   later in the DOM) paint straight over it. .hero__inner also sits at 1, so the
+   gallery slides over the hero words rather than under them. */
 .hero-overlay .hero {
-  position: sticky;
+  position: relative;
+  overflow: visible;
+}
+.hero-overlay .hero__img,
+.hero-overlay .hero__scrim {
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 0;
 }
+.hero-overlay .hero__inner { position: relative; z-index: 1; }
 .hero-overlay main > section:not(.hero) {
   position: relative;
   z-index: 1;
