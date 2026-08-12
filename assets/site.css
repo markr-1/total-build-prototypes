@@ -126,7 +126,28 @@
       justify-content: space-between;
       gap: var(--space-4);
     }
-    .wordmark { height: 20px; width: auto; }
+    /* The wordmark is live text, not the SVG logotype. Mark asked for it to be
+       the SAME font as the nav links, so every type property below is copied
+       from .site-nav a rather than merely sharing its family. Only the colour
+       differs, which is what still marks it as the brand. */
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-body);
+      font-weight: var(--fw-medium);
+      font-size: var(--type-label-bold-size);
+      text-transform: uppercase;
+      letter-spacing: var(--type-label-bold-ls);
+      color: var(--text-strong);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color var(--dur-fast) var(--ease-standard);
+    }
+    /* The tb monogram, sitting to the left of the words. flex:none stops it
+       being squeezed when the nav gets tight. */
+    .wordmark__mark { width: 28px; height: 28px; display: block; flex: none; }
+    .wordmark:hover { color: var(--accent-ink); }
     .site-nav { display: flex; align-items: center; gap: var(--space-5); }
     .site-nav a {
       font-family: var(--font-body);
@@ -236,6 +257,71 @@
       border-top: var(--border-width) solid var(--border-default);
     }
     .flagship__seal img { width: 40px; height: 40px; }
+
+    /* =====================================================================
+       .pair — the two homes, side by side.
+       They used to be two full-width .flagship blocks stacked, which cost
+       about 1600px of scroll to say "we have built two houses". Two columns
+       says the same thing in half the height and lets them be compared.
+       The frame is a duplicate link to the same page as the title, so it is
+       aria-hidden and out of the tab order; the title carries the real link.
+       ===================================================================== */
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+    .pair__frame {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      /* Was 4/5 portrait, which ran ~720px tall in a half-width column and made
+         each card too long to read at a glance. 8/5 halves that. */
+      aspect-ratio: 8 / 5;
+      background: var(--surface-sunken, #eee);
+    }
+    /* :not(.pair__mark) so the corner watermark is not stretched to fill the
+       frame the way the photograph is. */
+    .pair__frame img:not(.pair__mark) {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--dur-slow) var(--ease-standard);
+    }
+    /* Corner watermark. Cream on a drop shadow so it holds on both a bright
+       sky and a dark interior; it is decorative, so it never takes a click. */
+    .pair__mark {
+      position: absolute;
+      right: var(--space-4);
+      bottom: var(--space-4);
+      width: 42px;
+      height: 42px;
+      opacity: 0.9;
+      filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5));
+      pointer-events: none;
+    }
+    .pair__item:hover .pair__frame img { transform: scale(1.03); }
+    .pair__copy { padding-top: var(--space-4); }
+    .pair__no {
+      display: block;
+      font-family: var(--font-body);
+      font-weight: var(--fw-bold);
+      font-size: var(--type-label-bold-size);
+      letter-spacing: var(--type-label-bold-ls);
+      color: var(--accent);
+      margin-bottom: var(--space-2);
+    }
+    .pair__eyebrow { margin-bottom: var(--space-2); }
+    .pair__title { margin: 0 0 var(--space-3); }
+    .pair__title a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: var(--border-width) solid transparent;
+      transition: border-color var(--dur-fast) var(--ease-standard);
+    }
+    .pair__title a:hover { border-bottom-color: var(--accent); }
+    .pair__copy p { margin: 0; }
 
     /* =====================================================================
        §3 WHY WORK WITH US — the heart. Portrait + promise, then a quiet
@@ -434,6 +520,9 @@
       .flagship { grid-template-columns: 1fr; gap: var(--space-4); }
       .flagship + .flagship { margin-top: var(--space-12); }
       .flagship--reverse .flagship__frame { order: 0; }
+      /* Two columns is the point of .pair, but not at 400px wide. */
+      .pair { grid-template-columns: 1fr; gap: var(--space-10); }
+      .pair__frame { aspect-ratio: 3 / 2; }
 
       /* §3 why */
       .why-grid { grid-template-columns: 1fr; gap: var(--space-8); margin-bottom: var(--space-12); }
@@ -887,10 +976,15 @@
   transition: opacity var(--dur-medium) var(--ease-standard);
 }
 
-/* The wordmark is a solid-colour SVG loaded through <img>, so currentColor
-   does not reach it (see the note in References/brand). brightness(0) flattens
-   it to black and invert(1) lifts it to white. */
-.hero-overlay .site-header .wordmark { filter: brightness(0) invert(1); }
+/* The wordmark is live text now, so it takes colour directly. It used to be an
+   SVG loaded through <img>, which currentColor could not reach and which had to
+   be flipped with a brightness/invert filter. */
+.hero-overlay .site-header .wordmark { color: var(--tb-architectural-cream); }
+/* The monogram ships as a near-black PNG, so over the photograph it is flipped
+   to white rather than shipping a second file for one header state. */
+.hero-overlay .site-header .wordmark__mark { filter: brightness(0) invert(1); }
+.hero-overlay .site-header.scrolled .wordmark__mark,
+.hero-overlay .site-header.nav-open .wordmark__mark { filter: none; }
 .hero-overlay .site-header .site-nav a,
 .hero-overlay .site-header .header-phone,
 .hero-overlay .site-header .nav-toggle { color: var(--tb-architectural-cream); }
@@ -904,7 +998,7 @@
   box-shadow: var(--shadow-ambient);
 }
 .hero-overlay .site-header.scrolled::before { opacity: 0; }
-.hero-overlay .site-header.scrolled .wordmark { filter: none; }
+.hero-overlay .site-header.scrolled .wordmark { color: var(--text-strong); }
 .hero-overlay .site-header.scrolled .site-nav a,
 .hero-overlay .site-header.scrolled .header-phone,
 .hero-overlay .site-header.scrolled .nav-toggle { color: var(--text-body); }
@@ -917,7 +1011,39 @@
    selector support for something this visible. */
 .hero-overlay .site-header.nav-open { background: var(--surface-page); border-bottom-color: var(--border-default); }
 .hero-overlay .site-header.nav-open::before { opacity: 0; }
-.hero-overlay .site-header.nav-open .wordmark { filter: none; }
+.hero-overlay .site-header.nav-open .wordmark { color: var(--text-strong); }
 .hero-overlay .site-header.nav-open .site-nav a,
 .hero-overlay .site-header.nav-open .header-phone,
 .hero-overlay .site-header.nav-open .nav-toggle { color: var(--text-body); }
+
+/* =====================================================================
+   PINNED HERO — homepage only.
+   The photograph holds still and the rest of the page slides up over it,
+   so the hero words vanish under the gallery instead of scrolling away
+   with it.
+
+   Scoped to .hero-overlay because only the homepage has the full-bleed
+   hero; inner pages use .hero--page and must keep scrolling normally.
+
+   The z-index pair is what makes it work: the hero sits at 0 and every
+   following section at 1, so they pass over it rather than under. Each of
+   those sections therefore needs an OPAQUE background or the pinned
+   photograph shows straight through. .section--sunken and .closing are
+   re-asserted below because the blanket rule would otherwise flatten
+   them to page white.
+   ===================================================================== */
+.hero-overlay .hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+}
+.hero-overlay main > section:not(.hero) {
+  position: relative;
+  z-index: 1;
+  background: var(--surface-page);
+}
+.hero-overlay main > section.section--sunken { background: var(--surface-sunken); }
+.hero-overlay main > section.closing { background: var(--surface-inverse); }
+/* The footer follows main, so it clears the sticky hero on its own, but it
+   is given a stacking context anyway so it can never be drawn behind it. */
+.hero-overlay .site-footer { position: relative; z-index: 1; }

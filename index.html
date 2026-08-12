@@ -17,15 +17,12 @@
 
   <header class="site-header" id="siteHeader">
     <div class="header-inner">
-      <a href="#top" aria-label="Total Build home">
-        <img class="wordmark" src="assets/logo/tb-wordmark-onyx.svg" alt="Total Build" />
-      </a>
+      <a class="wordmark" href="#top"><img class="wordmark__mark" src="assets/logo/tb-monogram-onyx.png" alt="" aria-hidden="true" width="512" height="512" /><span>Total Build</span></a>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav">Menu</button>
       <nav class="site-nav" id="siteNav" aria-label="Primary">
-        <a href="custom-homes.html">Custom Homes</a>
-        <a href="projects.html">Projects</a>
-        <a href="about.html">About</a>
-        <a href="blog.html">Notes</a>
+        <a href="custom-homes.html">The Process</a>
+        <a href="projects.html">The Projects</a>
+        <a href="about.html">The Team</a>
         <a href="contact.html">Contact</a>
         <a class="header-phone" href="tel:+17036349211">(703) 634-9211</a>
       </nav>
@@ -35,7 +32,7 @@
   <main id="top">
 
     <section class="hero" aria-label="Introduction">
-      <img class="hero__img" src="assets/img/tb-paxson-exterior.jpg" alt="A custom home built by Total Build in Loudoun County, Virginia" width="2000" height="1555" fetchpriority="high" />
+      <img class="hero__img" src="assets/img/tb-thornhedge-exterior.jpg" alt="A custom home built by Total Build in Loudoun County, Virginia" width="2000" height="1555" fetchpriority="high" />
       <div class="hero__scrim" aria-hidden="true"></div>
       <div class="hero__inner">
         <p class="eyebrow hero__eyebrow">Total Build · Custom homes · Loudoun County, Virginia</p>
@@ -45,49 +42,118 @@
       </div>
     </section>
 
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+      <div class="tb-container">
+
+        <div class="section-head reveal">
+          <p class="eyebrow">The gallery</p>
+          <h2 class="h-xl" id="gallery-title">Have a look inside.</h2>
+        </div>
+
+        <div class="mosaic reveal">
+          <div class="m-tile col7"><img src="assets/img/tb-sedgemont-aerial.jpg" alt="The Sedgemont Ridge house and pool from the air" width="2000" height="1497" loading="lazy" decoding="async" /></div>
+          <div class="m-tile col5"><img src="assets/img/tb-thornhedge-kitchen.jpg" alt="The kitchen at Thornhedge Lane, opening onto the great room" width="900" height="610" loading="lazy" decoding="async" /></div>
+
+          <div class="m-tile col4"><img src="assets/img/tb-sedgemont-porch.jpg" alt="The covered porch at Sedgemont Ridge, looking to the mountains" width="900" height="606" loading="lazy" decoding="async" /></div>
+          <div class="m-tile col4"><img src="assets/img/tb-thornhedge-entry.jpg" alt="The entry at Thornhedge Lane, stone underfoot and timber overhead" width="599" height="900" loading="lazy" decoding="async" /></div>
+          <div class="m-quote col4">
+            <blockquote>&ldquo;We absolutely LOVE our new home and highly recommend TotalBuild!&rdquo;</blockquote>
+            <cite class="label">Kelly Quinn</cite>
+          </div>
+
+          <div class="m-quote col5">
+            <blockquote>&ldquo;They all were professional, communicated clearly on timing and costs, and all the work came out even better than we expected.&rdquo;</blockquote>
+            <cite class="label">Shelly Ross</cite>
+          </div>
+          <div class="m-tile col7"><img src="assets/img/tb-sedgemont-pool-2.jpg" alt="The pool at Sedgemont Ridge, set into the slope above the valley" width="900" height="600" loading="lazy" decoding="async" /></div>
+
+          <div class="m-tile col4"><img src="assets/img/tb-sedgemont-living.jpg" alt="The living room at Sedgemont Ridge" width="1500" height="999" loading="lazy" decoding="async" /></div>
+          <div class="m-tile col4"><img src="assets/img/tb-thornhedge-aerial.jpg" alt="The Thornhedge Lane house from the air, in its pasture" width="1500" height="1166" loading="lazy" decoding="async" /></div>
+          <div class="m-tile col4"><img src="assets/img/tb-sedgemont-kitchen.jpg" alt="The kitchen island at Sedgemont Ridge" width="900" height="600" loading="lazy" decoding="async" /></div>
+
+          <div class="m-tile col7"><img src="assets/img/tb-thornhedge-porch-2.jpg" alt="The covered deck at Thornhedge Lane" width="600" height="900" loading="lazy" decoding="async" /></div>
+          <div class="m-tile col5"><img src="assets/img/tb-thornhedge-bath.jpg" alt="The primary bath at Thornhedge Lane, with a stone soaking tub" width="900" height="600" loading="lazy" decoding="async" /></div>
+
+          <div class="m-quote col4">
+            <blockquote>&ldquo;I would highly recommend Total Build and the work they do and will continue using them for upcoming projects.&rdquo;</blockquote>
+            <cite class="label">Jack Clark</cite>
+          </div>
+          <div class="m-tile col4"><img src="assets/img/tb-sedgemont-firepit.jpg" alt="The fire pit and stone patio at Sedgemont Ridge" width="600" height="900" loading="lazy" decoding="async" /></div>
+          <div class="m-tile col4"><img src="assets/img/tb-thornhedge-mudroom.jpg" alt="The green mudroom at Thornhedge Lane" width="900" height="623" loading="lazy" decoding="async" /></div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="work" aria-labelledby="work-title">
       <div class="tb-container">
 
         <div class="section-head reveal">
-          <p class="eyebrow">The work</p>
+          <p class="eyebrow">The projects</p>
           <h2 class="h-xl" id="work-title">Two of the homes we&rsquo;ve built.</h2>
-          <p class="lead muted">Both in Loudoun County, both built for the family living in them, and neither one much like the other.</p>
+          <p class="lead muted">Both are in Loudoun County. Past that, they have almost nothing in common.</p>
         </div>
 
-        <article class="flagship reveal">
-          <div class="flagship__frame">
-            <img src="assets/img/tb-paxson-greatroom.jpg" alt="A great room with a full-height stone fireplace and exposed timber trusses at the Paxson Road house" width="1000" height="1500" loading="lazy" decoding="async" />
-          </div>
-          <div class="flagship__copy">
-            <span class="flagship__no">01</span>
-            <p class="eyebrow flagship__eyebrow">Paxson Road &middot; Loudoun County</p>
-            <h3 class="h-lg flagship__title">Timber, stone, and a long view</h3>
-            <p class="lead muted">A house built around one room: a full-height stone fireplace under exposed timber trusses, opening onto a covered deck that runs the length of the back and looks out over the fields.</p>
-            <div class="flagship__seal">
-              <img src="assets/logo/tb-seal-onyx.svg" alt="" aria-hidden="true" />
-              <p class="label">Built by Total Build</p>
-            </div>
-            <p style="margin-top: var(--space-5);"><a class="textlink" href="projects-paxson-road.html">See this project</a></p>
-          </div>
-        </article>
+        <div class="pair reveal">
 
-        <article class="flagship flagship--reverse reveal">
-          <div class="flagship__frame">
-            <img src="assets/img/tb-roundtop-pool.jpg" alt="The pool at the Round Top Lane house, looking out to the Blue Ridge" width="1000" height="1500" loading="lazy" decoding="async" />
-          </div>
-          <div class="flagship__copy">
-            <span class="flagship__no">02</span>
-            <p class="eyebrow flagship__eyebrow">Round Top Lane &middot; Loudoun County</p>
-            <h3 class="h-lg flagship__title">Built to face the view</h3>
-            <p class="lead muted">Sited so that the rooms the family actually uses all look the same way. A deep covered porch, a pool set into the slope, and a kitchen built to have people standing around it.</p>
-            <div class="flagship__seal">
-              <img src="assets/logo/tb-seal-onyx.svg" alt="" aria-hidden="true" />
-              <p class="label">Built by Total Build</p>
+          <article class="pair__item">
+            <a class="pair__frame" href="projects-thornhedge-lane.html" tabindex="-1" aria-hidden="true">
+              <img src="assets/img/tb-thornhedge-greatroom.jpg" alt="A great room with a full-height stone fireplace and exposed timber trusses at the Thornhedge Lane house" width="1000" height="1500" loading="lazy" decoding="async" />
+              <img class="pair__mark" src="assets/logo/tb-monogram-cream.png" alt="" aria-hidden="true" width="512" height="512" />
+            </a>
+            <div class="pair__copy">
+              <span class="pair__no">01</span>
+              <p class="eyebrow pair__eyebrow">Thornhedge Lane &middot; Loudoun County</p>
+              <h3 class="h-lg pair__title"><a href="projects-thornhedge-lane.html">Timber, stone, and a long view</a></h3>
+              <p class="muted">This house is built around one room. The stone fireplace runs the full height of it, with timber trusses overhead. Out back, a covered deck runs the width of the house and looks over open fields.</p>
             </div>
-            <p style="margin-top: var(--space-5);"><a class="textlink" href="projects-round-top-lane.html">See this project</a></p>
-          </div>
-        </article>
+          </article>
 
+          <article class="pair__item">
+            <a class="pair__frame" href="projects-sedgemont-ridge.html" tabindex="-1" aria-hidden="true">
+              <img src="assets/img/tb-sedgemont-pool.jpg" alt="The pool at the Sedgemont Ridge house, looking out to the Blue Ridge" width="1000" height="1500" loading="lazy" decoding="async" />
+              <img class="pair__mark" src="assets/logo/tb-monogram-cream.png" alt="" aria-hidden="true" width="512" height="512" />
+            </a>
+            <div class="pair__copy">
+              <span class="pair__no">02</span>
+              <p class="eyebrow pair__eyebrow">Sedgemont Ridge &middot; Loudoun County</p>
+              <h3 class="h-lg pair__title"><a href="projects-sedgemont-ridge.html">Built to face the view</a></h3>
+              <p class="muted">Every room this family actually uses faces the same way. There is a deep covered porch, and a pool cut into the slope below it. The kitchen was built wide on purpose, because that is where people end up standing.</p>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section section--tight" id="process" aria-labelledby="process-title">
+      <div class="tb-container">
+        <div class="section-head reveal">
+          <p class="eyebrow">The process</p>
+          <h2 class="h-xl" id="process-title" style="margin-top: var(--space-3);">How We Do It</h2>
+        </div>
+        <div class="process-grid reveal">
+          <div class="step">
+            <p class="step__no">01</p>
+            <h3 class="h-md" style="margin: 0 0 var(--space-2);">We sit down</h3>
+            <p class="muted" style="margin:0;">We start with your life in the home, how you actually want to live in it. Your hopes and dreams pave the way.</p>
+          </div>
+          <div class="step">
+            <p class="step__no">02</p>
+            <h3 class="h-md" style="margin: 0 0 var(--space-2);">We draw it</h3>
+            <p class="muted" style="margin:0;">Plans and details, worked out together before a single board is cut. Your vision is cast for review.</p>
+          </div>
+          <div class="step">
+            <p class="step__no">03</p>
+            <h3 class="h-md" style="margin: 0 0 var(--space-2);">We build it</h3>
+            <p class="muted" style="margin:0;">A clean, careful site. Each step taken with your family in mind. High speeds without neglecting excellence.</p>
+          </div>
+          <div class="step">
+            <p class="step__no">04</p>
+            <h3 class="h-md" style="margin: 0 0 var(--space-2);">You take the keys</h3>
+            <p class="muted" style="margin:0;">You walk into a home, completely yours and fully finished. Our greatest joy is placing the keys in your hands.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -95,120 +161,16 @@
       <div class="tb-container">
         <div class="testimonial">
           <div class="testimonial__media">
-            <img src="assets/img/tb-paxson-porch.jpg" alt="The covered deck at the Paxson Road house, looking out over the fields" width="1000" height="1500" loading="lazy" decoding="async" />
+            <img src="assets/img/tb-thornhedge-porch.jpg" alt="The covered deck at the Thornhedge Lane house, looking out over the fields" width="1000" height="1500" loading="lazy" decoding="async" />
           </div>
           <div class="testimonial__body">
             <p class="eyebrow">In their own words</p>
             <h2 class="h-xl" id="testimonial-title">What it is like to build with us.</h2>
             <blockquote class="testimonial__quote">
-              <p>&ldquo;The work his crew did on our house was fantastic. They were professional, on time, neat and trustworthy. I just can not say enough positive things about Brian and his company.&rdquo;</p>
-              <cite class="label">Kathy, Sterling VA</cite>
+              <p>&ldquo;After our move-in the Total Build team has continued to be just as responsive resolving any minor punch list items efficiently. We feel fortunate to call this stunning house &lsquo;home&rsquo;.&rdquo;</p>
+              <cite class="label">Jennifer Zecca</cite>
             </blockquote>
             <p class="lead muted testimonial__note">A filmed conversation with one of our owners is being edited and will live here.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="why" aria-labelledby="why-title">
-      <div class="tb-container">
-
-        <div class="section-head reveal">
-          <p class="eyebrow">Why work with us</p>
-          <h2 class="h-xl" id="why-title">The fourth generation of Smith builders.</h2>
-        </div>
-
-        <div class="why-grid reveal">
-          <div class="portrait" role="img" aria-label="Portrait of Brian Smith, coming soon">
-            <p class="label">Portrait of Brian Smith</p>
-          </div>
-          <div class="why-copy">
-            <p class="eyebrow">The owner</p>
-            <h3 class="h-xl why-promise">We see ourselves as builders, coaches, and advocates.</h3>
-            <p class="lead">Brian Smith grew up on his father&rsquo;s job sites in Loudoun County. His grandfather ran E.J. Smith Builders in McLean, and his great-grandfather started the line in 1910.</p>
-            <p class="why-body muted">After many successful years, his grandparents chose to close that company rather than risk anyone else carrying the family name without holding the standard behind it. Brian started Total Build in 2008, and he still runs it the way that decision taught him to.</p>
-          </div>
-        </div>
-
-        <div class="values values--3 reveal">
-          <div class="value">
-            <h3 class="h-md">Trust</h3>
-            <p>We believe lasting relationships are built on honesty, transparency, and doing what&rsquo;s right even when no one is looking.</p>
-          </div>
-          <div class="value">
-            <h3 class="h-md">Quality</h3>
-            <p>There are materials we will not compromise on. We build the parts you never see to the standard of the parts you see every day.</p>
-          </div>
-          <div class="value">
-            <h3 class="h-md">Communication</h3>
-            <p>You will know what is happening on your site, what it costs, and what comes next. Nothing arrives as a surprise at the end.</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section" id="gallery" aria-labelledby="gallery-title">
-      <div class="tb-container">
-
-        <div class="section-head reveal">
-          <p class="eyebrow">The gallery</p>
-          <h2 class="h-xl" id="gallery-title">The rooms, and the people who live in them.</h2>
-        </div>
-
-        <div class="mosaic reveal">
-          <div class="m-tile col7"><img src="assets/img/tb-roundtop-aerial.jpg" alt="The Round Top Lane house and pool from the air" width="2000" height="1497" loading="lazy" decoding="async" /></div>
-          <div class="m-tile col5"><img src="assets/img/tb-paxson-kitchen.jpg" alt="The kitchen at Paxson Road, opening onto the great room" width="900" height="610" loading="lazy" decoding="async" /></div>
-
-          <div class="m-tile col4"><img src="assets/img/tb-roundtop-porch.jpg" alt="The covered porch at Round Top Lane, looking to the mountains" width="900" height="606" loading="lazy" decoding="async" /></div>
-          <div class="m-tile col4"><img src="assets/img/tb-paxson-entry.jpg" alt="The entry at Paxson Road, stone underfoot and timber overhead" width="599" height="900" loading="lazy" decoding="async" /></div>
-          <div class="m-tile col4"><img src="assets/img/tb-roundtop-study.jpg" alt="The built-in study at Round Top Lane" width="900" height="600" loading="lazy" decoding="async" /></div>
-
-          <div class="m-quote col5">
-            <blockquote>&ldquo;The work his crew did on our house was fantastic. They were professional, on time, neat and trustworthy. I just can not say enough positive things about Brian and his company. Do not hesitate using Total Build for your remodeling, you will be so happy with the results.&rdquo;</blockquote>
-            <cite class="label">Kathy, Sterling VA</cite>
-          </div>
-          <div class="m-tile col7"><img src="assets/img/tb-roundtop-pool-2.jpg" alt="The pool at Round Top Lane, set into the slope above the valley" width="900" height="600" loading="lazy" decoding="async" /></div>
-
-          <div class="m-tile col4"><img src="assets/img/tb-roundtop-living.jpg" alt="The living room at Round Top Lane" width="1500" height="999" loading="lazy" decoding="async" /></div>
-          <div class="m-tile col4"><img src="assets/img/tb-paxson-aerial.jpg" alt="The Paxson Road house from the air, in its pasture" width="1500" height="1166" loading="lazy" decoding="async" /></div>
-          <div class="m-tile col4"><img src="assets/img/tb-roundtop-kitchen.jpg" alt="The kitchen island at Round Top Lane" width="900" height="600" loading="lazy" decoding="async" /></div>
-
-          <div class="m-tile col7"><img src="assets/img/tb-paxson-porch-2.jpg" alt="The covered deck at Paxson Road" width="600" height="900" loading="lazy" decoding="async" /></div>
-          <div class="m-tile col5"><img src="assets/img/tb-paxson-bath.jpg" alt="The primary bath at Paxson Road, with a stone soaking tub" width="900" height="600" loading="lazy" decoding="async" /></div>
-
-          <div class="m-tile col6"><img src="assets/img/tb-roundtop-firepit.jpg" alt="The fire pit and stone patio at Round Top Lane" width="600" height="900" loading="lazy" decoding="async" /></div>
-          <div class="m-tile col6"><img src="assets/img/tb-paxson-mudroom.jpg" alt="The green mudroom at Paxson Road" width="900" height="623" loading="lazy" decoding="async" /></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--tight" id="process" aria-labelledby="process-title">
-      <div class="tb-container">
-        <div class="section-head reveal">
-          <p class="eyebrow">How it works</p>
-          <h2 class="h-xl" id="process-title" style="margin-top: var(--space-3);">Four steps, no surprises.</h2>
-        </div>
-        <div class="process-grid reveal">
-          <div class="step">
-            <p class="step__no">01</p>
-            <h3 class="h-md" style="margin: 0 0 var(--space-2);">We sit down</h3>
-            <p class="muted" style="margin:0;">We start with your life in the home, how you actually want to live in it. What you want from the house shapes everything that follows.</p>
-          </div>
-          <div class="step">
-            <p class="step__no">02</p>
-            <h3 class="h-md" style="margin: 0 0 var(--space-2);">We draw it</h3>
-            <p class="muted" style="margin:0;">Plans and details, worked out together before a single board is cut. You see the whole house before anyone builds it.</p>
-          </div>
-          <div class="step">
-            <p class="step__no">03</p>
-            <h3 class="h-md" style="margin: 0 0 var(--space-2);">We build it</h3>
-            <p class="muted" style="margin:0;">A clean, careful site, and every step taken with your family in mind. We keep the work moving without letting the standard slip.</p>
-          </div>
-          <div class="step">
-            <p class="step__no">04</p>
-            <h3 class="h-md" style="margin: 0 0 var(--space-2);">You take the keys</h3>
-            <p class="muted" style="margin:0;">You walk into a house that is finished, and completely yours. Handing over the keys is the best day of the job.</p>
           </div>
         </div>
       </div>
@@ -221,7 +183,6 @@
         <a class="btn btn--on-dark" href="contact.html">Start a conversation</a>
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer">
@@ -234,10 +195,9 @@
         <div class="footer-col">
           <h4 class="label">Explore</h4>
           <ul>
-            <li><a href="custom-homes.html">Custom Homes</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="blog.html">Notes</a></li>
+            <li><a href="custom-homes.html">The Process</a></li>
+            <li><a href="projects.html">The Projects</a></li>
+            <li><a href="about.html">The Team</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
