@@ -39,7 +39,22 @@
   .aside > .aside__link,
   .aside > .aside__body,
   .aside > .aside__foot { position: relative; z-index: 2; }
-  .aside__wordmark { height: 18px; width: auto; }
+  /* Live text rather than the SVG logotype, so it matches the typeface used
+     everywhere else on the site. */
+  .aside__link { text-decoration: none; }
+  .aside__wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-body);
+    font-weight: var(--fw-medium);
+    font-size: var(--type-label-bold-size);
+    text-transform: uppercase;
+    letter-spacing: var(--type-label-bold-ls);
+    color: var(--tb-architectural-cream);
+    white-space: nowrap;
+  }
+  .aside__wordmark-mark { width: 24px; height: 24px; display: block; flex: none; }
   .aside__quote {
     max-width: 30ch;
     font-family: var(--font-display);
@@ -201,14 +216,17 @@
     <img class="aside__img" src="assets/img/tb-thornhedge-greatroom.jpg" alt="A living room with exposed beams and morning light" width="1000" height="1500" loading="lazy" decoding="async" />
     <div class="aside__scrim"></div>
 
-    <a class="aside__link" href="index.html" aria-label="Total Build home">
-      <img class="aside__wordmark" src="assets/logo/tb-wordmark-cream.svg" alt="Total Build" />
+    <a class="aside__link" href="index.html">
+      <span class="aside__wordmark">
+        <img class="aside__wordmark-mark" src="assets/logo/tb-monogram-cream.png" alt="" aria-hidden="true" width="512" height="512" />
+        <span>Total Build</span>
+      </span>
     </a>
 
     <div class="aside__body">
       <p class="aside__quote">This is where it starts. We'd rather have a conversation than a form.</p>
-      <p class="aside__sub">Tell us what you have in mind. Brian reads every one of these, and we only
-        take on a few homes a year.</p>
+      <p class="aside__sub">Tell us what you have in mind. Our team reads every one of these, and we
+        only take on a few homes a year.</p>
     </div>
 
     <div class="aside__foot">
@@ -317,7 +335,6 @@
           <fieldset aria-labelledby="q6">
             <p class="eyebrow">You</p>
             <h2 class="q" id="q6">And how do we reach you?</h2>
-            <p class="q-help">This goes to Brian directly.</p>
             <div class="fields">
               <div class="fields fields--2">
                 <div class="field"><label for="name">Your name</label><input type="text" id="name" name="name" autocomplete="name" required></div>
@@ -339,9 +356,9 @@
           <img class="done__seal" src="assets/logo/tb-monogram-onyx.png" alt="" />
           <p class="eyebrow">Thank you</p>
           <h1 class="done__h">We'll be in touch personally, within a couple of days.</h1>
-          <p class="done__p">Brian reads every one of these himself, because he's the one who'd build
-            your house. No auto-reply, no salesperson in between. We only take on a few homes a year,
-            and that's the whole reason we can answer this way.</p>
+          <p class="done__p">Someone on our team reads this and gets back to you. Not an auto-reply,
+            and not a call centre. We only take on a few homes a year, which is what makes that
+            possible.</p>
           <div class="recap">
             <h2>What you told us</h2>
             <dl id="recap"></dl>
@@ -391,7 +408,7 @@
     stepNum.textContent = pad(i + 1);
     bar.style.width = ((i + 1) / total * 100) + '%';
     backBtn.hidden = (i === 0);
-    nextBtn.textContent = (i === total - 1) ? 'Send to Brian' : 'Continue';
+    nextBtn.textContent = (i === total - 1) ? 'Send' : 'Continue';
     errEl.textContent = '';
     var focusable = steps[i].querySelector('input[type=radio], input[type=text], input[type=email]');
     if (focusable) { try { focusable.focus({ preventScroll: true }); } catch (e) { focusable.focus(); } }

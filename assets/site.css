@@ -467,7 +467,24 @@
       border-bottom: var(--border-width) solid var(--border-on-inverse);
     }
     .footer-brand { display: flex; flex-direction: column; gap: var(--space-5); }
-    .footer-wordmark { height: 22px; width: auto; }
+    /* Live text, not the SVG logotype, for the same reason as the header: an
+       SVG wordmark cannot match the site's typeface. Cream, with the monogram
+       beside it, so it reads on the dark footer. */
+    .footer-wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-body);
+      font-weight: var(--fw-medium);
+      font-size: var(--type-label-bold-size);
+      text-transform: uppercase;
+      letter-spacing: var(--type-label-bold-ls);
+      color: var(--tb-architectural-cream);
+      text-decoration: none;
+      margin-bottom: var(--space-4);
+    }
+    .footer-wordmark:hover { color: var(--accent); }
+    .footer-wordmark__mark { width: 28px; height: 28px; display: block; flex: none; }
     .footer-brand p { max-width: 34ch; color: var(--text-on-inverse-muted); margin: 0; }
     .footer-col h4 { margin: 0 0 var(--space-3); color: var(--text-on-inverse); }
     .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
@@ -1064,3 +1081,48 @@
 /* The footer follows main, so it clears the sticky hero on its own, but it
    is given a stacking context anyway so it can never be drawn behind it. */
 .hero-overlay .site-footer { position: relative; z-index: 1; }
+
+/* =====================================================================
+   PINNED HERO, part two: the inner pages.
+   Same trick as the homepage. The photograph is fixed to the viewport and
+   everything after it scrolls over the top, so the hero copy leaves with
+   the page while the picture stays.
+
+   `~ *` catches every following section whatever its tag, then the
+   specific bands re-assert their own colour, because the blanket rule
+   would otherwise flatten sunken and inverse panels to page white.
+   ===================================================================== */
+main > .hero--page { position: relative; overflow: visible; }
+main > .hero--page .hero__img,
+main > .hero--page .hero__scrim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+main > .hero--page .hero__inner { position: relative; z-index: 1; }
+main > .hero--page ~ * { position: relative; z-index: 1; background: var(--surface-page); }
+main > .hero--page ~ .section--sunken,
+main > .hero--page ~ .band-sunken { background: var(--surface-sunken); }
+main > .hero--page ~ .band-inverse,
+main > .hero--page ~ .cta,
+main > .hero--page ~ .closing { background: var(--surface-inverse); }
+
+/* The footer follows main, so it clears the fixed hero on its own; the
+   stacking context is belt and braces. */
+.site-footer { position: relative; z-index: 1; }
+
+/* The prototype banner is a static block, so a FIXED hero photograph at
+   z-index 0 paints straight over it: the banner vanished and left a strip of
+   bare photograph above the header with none of the header's scrim on it.
+   That strip was the odd clear bar at the top of the page. Lifting the banner
+   into its own layer puts it back in front and closes the seam. */
+.proto-banner { position: relative; z-index: 2; }
+
+/* The three values read as one long rule with hairline nicks in it. Dropping
+   the container's own border, and widening the gutter, makes them three
+   separate blocks, which is what they are. */
+.values { border-top: 0; }
+.values--3 { gap: 0 var(--space-8); }
