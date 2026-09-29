@@ -201,6 +201,7 @@
       color: var(--tb-architectural-cream);
       max-width: 15ch;
       margin-bottom: var(--space-4);
+      text-wrap: balance;
     }
     .hero__sub {
       color: var(--tb-architectural-cream);
@@ -217,6 +218,8 @@
     .section-head { max-width: 54ch; margin-bottom: var(--space-12); }
     .section-head .eyebrow { margin-bottom: var(--space-3); }
     .section-head .lead { margin-top: var(--space-4); }
+    .section-head.section-head--wide { max-width: none; }  /* headline runs the full width */
+    .section-head.section-head--label { margin-bottom: var(--space-6); }  /* eyebrow only, no heading */
 
     /* =====================================================================
        §2 THE WORK — three flagships, gallery-set. A's strength.
@@ -334,6 +337,8 @@
       align-items: center;
       margin-bottom: var(--space-16);
     }
+    /* Project pages: the photo leads, the few lines of copy sit beside it. */
+    .why-grid.why-grid--photo { grid-template-columns: 7fr 5fr; margin-bottom: 0; }
     .portrait {
       aspect-ratio: 4 / 5;
       background: var(--surface-inverse);
@@ -461,7 +466,10 @@
     }
     .footer-top {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      /* Four blocks, four columns: brand, Explore, Services, Contact on ONE row.
+         With three columns Contact wrapped to a second row on its own (Mark,
+         2026-09-27: "it all in one layer"). */
+      grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: var(--space-8);
       padding-bottom: var(--space-8);
       border-bottom: var(--border-width) solid var(--border-on-inverse);
@@ -543,6 +551,7 @@
 
       /* §3 why */
       .why-grid { grid-template-columns: 1fr; gap: var(--space-8); margin-bottom: var(--space-12); }
+      .why-grid.why-grid--photo { grid-template-columns: 1fr; margin-bottom: 0; }
       .portrait { max-width: 320px; }
       .values { grid-template-columns: 1fr; }
       .value { padding-right: 0; }
@@ -1126,3 +1135,50 @@ main > .hero--page ~ .closing { background: var(--surface-inverse); }
    separate blocks, which is what they are. */
 .values { border-top: 0; }
 .values--3 { gap: 0 var(--space-8); }
+
+/* ---------------------------------------------------------------------
+   FILMS — 2026-09-27
+   Two owner testimonials and one walkthrough. They are the heaviest thing
+   on the site (6-30 MB), so a film is always click-to-play with
+   preload="none" and a poster; only the short silent drone clip loops on
+   its own. .film is the 16:9 frame; .film--quote pairs it with a pull
+   quote, reusing .testimonial__quote so quotes look the same sitewide.
+   --------------------------------------------------------------------- */
+.film { aspect-ratio: 16 / 9; background: var(--surface-inverse); overflow: hidden; }
+.film video { width: 100%; height: 100%; display: block; object-fit: cover; }
+.film--quote { display: grid; grid-template-columns: 7fr 5fr; gap: var(--space-12); align-items: center; }
+.film--quote .film { width: 100%; }
+@media (max-width: 900px) { .film--quote { grid-template-columns: 1fr; gap: var(--space-6); } }
+.flagship__frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* A proj card that holds a film instead of a still keeps the card's frame. */
+.proj__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------------------------------------------------------------------
+   COPY SLOT — review-only. Marks where Mark's copy goes before it is
+   written. audit.py flags every one as CRITICAL, so none can ship.
+   --------------------------------------------------------------------- */
+.copy-slot { border: 1px dashed var(--border-strong); padding: var(--space-4) var(--space-5);
+  color: var(--text-muted); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  background: repeating-linear-gradient(135deg, transparent 0 10px, rgba(202,123,65,.06) 10px 20px); }
+.copy-slot b { color: var(--accent); letter-spacing: .06em; text-transform: uppercase; font-size: 12px; }
+.hero .copy-slot { color: rgba(249,247,245,.85); border-color: rgba(249,247,245,.5); }
+
+/* ---------------------------------------------------------------------
+   ABOUT, team-first — 2026-09-27
+   .founder: Brian's short entry. His only portrait is a 504px circle with
+   the mask baked in, so it is shown small and round on purpose (the same
+   deliberate exemption from the sharp-corner rule as the monogram seal).
+   .line--inverse: the four-generation strip on a dark band.
+   --------------------------------------------------------------------- */
+.founder { display: grid; grid-template-columns: 200px 1fr; gap: var(--space-10); align-items: center; max-width: 900px; }
+.founder__img { width: 200px; height: 200px; border-radius: 50%; display: block; }
+.founder h2 { margin: 0 0 var(--space-4); }
+@media (max-width: 640px) { .founder { grid-template-columns: 1fr; gap: var(--space-6); }
+  .founder__img { width: 160px; height: 160px; } }
+.line--inverse { border-top-color: rgba(249,247,245,.35); }
+.line--inverse .line__row { border-bottom-color: rgba(249,247,245,.18); }
+.line--inverse .line__yr { color: var(--accent); }
+.line--inverse .line__txt { color: var(--text-on-inverse-muted); }
+.line--inverse .line__txt b { color: var(--tb-architectural-cream); }
+.testimonial__quote cite a { color: inherit; border-bottom: 1px solid currentColor; }

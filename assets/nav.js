@@ -26,6 +26,25 @@ document.documentElement.classList.add('js');
   Array.prototype.forEach.call(els, function (el) { io.observe(el); });
 })();
 
+/* Ambient clips -----------------------------------------------------------
+   A silent looping clip (<video data-ambient muted loop playsinline
+   preload="none">) must not start a multi-megabyte download on page load.
+   It plays only while on screen and pauses when it leaves. Visitors who ask
+   for reduced motion get the poster and nothing else. */
+(function () {
+  var vids = document.querySelectorAll('video[data-ambient]');
+  if (!vids.length || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else { v.pause(); }
+    });
+  }, { threshold: 0.25 });
+  Array.prototype.forEach.call(vids, function (v) { v.muted = true; io.observe(v); });
+})();
+
 /* Sticky header -----------------------------------------------------------
    Two jobs: publish the header's real height so a full-bleed hero can tuck
    underneath it, and flip `.scrolled` once the page has moved.
