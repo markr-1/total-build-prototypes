@@ -215,6 +215,9 @@
        ===================================================================== */
     .section { padding-block: var(--section-gap-desktop); }
     .section--tight { padding-block: var(--space-12); }
+    /* Less air above a section whose heading was cut (Mark, 2026-10-01). */
+    .section--snug-top { padding-top: var(--space-8); }
+    .section:has(+ .section--snug-top) { padding-bottom: var(--space-8); }
     .section-head { max-width: 54ch; margin-bottom: var(--space-12); }
     .section-head .eyebrow { margin-bottom: var(--space-3); }
     .section-head .lead { margin-top: var(--space-4); }
@@ -529,6 +532,8 @@
       .h-xl { font-size: var(--type-h-lg-size); line-height: var(--type-h-lg-lh); }
       .section { padding-block: var(--section-gap-mobile); }
       .section--tight { padding-block: var(--space-8); }
+      .section--snug-top { padding-top: var(--space-6); }
+      .section:has(+ .section--snug-top) { padding-bottom: var(--space-6); }
       .section-head { margin-bottom: var(--space-8); }
 
       .site-nav { display: none; }
