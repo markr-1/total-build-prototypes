@@ -245,7 +245,6 @@
       width: 100%; height: 100%; object-fit: cover;
       transition: transform var(--dur-slow) var(--ease-standard);
     }
-    .flagship:hover .flagship__frame img { transform: scale(1.03); }
     .flagship__no {
       font-family: var(--font-display);
       font-size: var(--type-h-lg-size);
@@ -307,7 +306,6 @@
       filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5));
       pointer-events: none;
     }
-    .pair__item:hover .pair__frame img { transform: scale(1.03); }
     .pair__copy { padding-top: var(--space-4); }
     .pair__no {
       display: block;
@@ -398,7 +396,6 @@
       width: 100%; height: 100%; object-fit: cover;
       transition: transform var(--dur-slow) var(--ease-standard);
     }
-    .m-tile:hover img { transform: scale(1.04); }
     .m-quote {
       grid-row: span 2;
       background: var(--surface-inverse);
@@ -660,7 +657,6 @@
 @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
 .card__frame { aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-sunken); }
 .card__frame img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease-standard); }
-.card:hover .card__frame img { transform: scale(1.03); }
 .card__meta { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-3); }
 
 /* Honest placeholder state for imagery we do not have */
@@ -747,7 +743,6 @@
 .proj__media { aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-sunken); position: relative; }
 .proj__media img { width: 100%; height: 100%; object-fit: cover;
   transition: transform var(--dur-slow) var(--ease-standard); }
-.proj:hover .proj__media img { transform: scale(1.03); }
 .proj__meta { display: flex; align-items: baseline; justify-content: space-between;
   gap: var(--space-3); margin-top: var(--space-3);
   padding-top: var(--space-3); border-top: var(--border-width) solid var(--border-strong); }
@@ -1187,3 +1182,134 @@ main > .hero--page ~ .closing { background: var(--surface-inverse); }
 .line--inverse .line__txt { color: var(--text-on-inverse-muted); }
 .line--inverse .line__txt b { color: var(--tb-architectural-cream); }
 .testimonial__quote cite a { color: inherit; border-bottom: 1px solid currentColor; }
+
+
+/* =====================================================================
+   2026-10-06: Joe's review (docs/2026-10-06-joe-review-changes.md)
+   ===================================================================== */
+
+/* Less white space between sections. */
+.section { padding-block: 88px; }
+.section-head, .sec-head { margin-bottom: var(--space-8); }
+@media (max-width: 760px) {
+  .section { padding-block: var(--space-12); }
+  .section-head, .sec-head { margin-bottom: var(--space-6); }
+}
+
+/* Two cards now that Persimmon Hill is gone. */
+.work--2 { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 700px) { .work--2 { grid-template-columns: 1fr; } }
+
+/* Brian's entry without a portrait (until a new headshot arrives). */
+.founder:not(:has(.founder__img)) { grid-template-columns: 1fr; max-width: 70ch; }
+
+/* Opening answer on the Loudoun and Renovations pages: no rule above it. */
+.intro { max-width: 76ch; }
+.intro h2 { font-family: var(--font-display); font-weight: var(--fw-regular); margin: 0 0 var(--space-3); }
+.intro p { margin: 0; font-size: var(--type-body-lg-size); line-height: var(--type-body-lg-lh); }
+
+/* FAQs as dropdowns. The answers stay in the HTML, so crawlers read them. */
+details.qa__item > summary { list-style: none; cursor: pointer; display: flex; align-items: baseline;
+  justify-content: space-between; gap: var(--space-4); }
+details.qa__item > summary::-webkit-details-marker { display: none; }
+details.qa__item > summary::after { content: "+"; font-size: 1.5em; line-height: 1; color: var(--accent); flex: none; }
+details.qa__item[open] > summary::after { content: "\2212"; }
+details.qa__item > summary > h2, details.qa__item > summary > h3 { margin: 0; }
+details.qa__item[open] > summary { margin-bottom: var(--space-3); }
+.qa { gap: var(--space-5); }
+
+/* ---------------------------------------------------------------------
+   Gallery: a tight, nearly full-width grid. The first photo runs the full
+   width as the big opener; the rest sit three across. Every photo opens in
+   the lightbox (assets/lightbox.js).
+   --------------------------------------------------------------------- */
+.gallery {
+  --gw: min(calc(100vw - 48px), 1680px);
+  width: var(--gw);
+  margin-left: calc((100% - var(--gw)) / 2);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.g-item { min-width: 0; margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--surface-sunken); }
+.g-item:first-child { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
+.g-item img { width: 100%; height: 100%; object-fit: cover; display: block; cursor: zoom-in; }
+.g-quote { aspect-ratio: 3 / 2; background: var(--surface-inverse); color: var(--text-on-inverse);
+  display: flex; flex-direction: column; justify-content: center; padding: var(--space-8); }
+.g-quote blockquote { margin: 0; font-family: var(--font-display); font-size: var(--type-h-md-size);
+  line-height: var(--type-h-md-lh); color: var(--tb-architectural-cream); }
+.g-quote cite { display: block; margin-top: var(--space-4); padding-top: var(--space-3);
+  border-top: var(--border-width) solid var(--border-on-inverse); font-style: normal; color: var(--text-on-inverse-muted); }
+@media (max-width: 900px) {
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g-item:first-child { aspect-ratio: 16 / 9; }
+  .g-quote { padding: var(--space-6); }
+}
+@media (max-width: 560px) {
+  .gallery { --gw: calc(100vw - 16px); gap: 4px; }
+  .g-quote { grid-column: 1 / -1; aspect-ratio: auto; }
+}
+
+/* Lightbox */
+.lb { position: fixed; inset: 0; z-index: 1000; background: rgba(12, 11, 10, .96); display: none;
+  align-items: center; justify-content: center; }
+.lb.is-open { display: flex; }
+.lb__img { max-width: calc(100vw - 140px); max-height: calc(100vh - 110px); object-fit: contain; display: block; user-select: none; }
+.lb button { position: absolute; background: none; border: 0; color: #f4efe6; cursor: pointer; font: inherit;
+  padding: 16px; line-height: 1; opacity: .85; }
+.lb button:hover, .lb button:focus-visible { opacity: 1; }
+.lb__close { top: 8px; right: 12px; font-size: 34px; }
+.lb__prev, .lb__next { top: 50%; transform: translateY(-50%); font-size: 44px; }
+.lb__prev { left: 8px; } .lb__next { right: 8px; }
+.lb__count { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+  color: #f4efe6; opacity: .75; font-size: 14px; letter-spacing: .08em; }
+body.lb-lock { overflow: hidden; }
+@media (max-width: 700px) {
+  .lb__img { max-width: 100vw; max-height: calc(100vh - 120px); }
+  .lb__prev, .lb__next { top: auto; bottom: 4px; transform: none; font-size: 36px; }
+}
+
+.pair__item { min-width: 0; }
+
+/* Quote cards keep the photo shape so every row lines up. */
+.g-quote { overflow: hidden; padding: clamp(18px, 2.4vw, 40px); }
+.g-quote blockquote { font-size: clamp(17px, 1.5vw, 24px); line-height: 1.3; }
+.g-quote cite { margin-top: var(--space-3); }
+
+/* Lightbox controls: big, round, easy to see on any photo. */
+.lb button.lb__prev, .lb button.lb__next, .lb button.lb__close {
+  width: 56px; height: 56px; padding: 0; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; background: rgba(255, 255, 255, .14); font-size: 34px; opacity: 1; }
+.lb button.lb__prev:hover, .lb button.lb__next:hover, .lb button.lb__close:hover { background: rgba(255, 255, 255, .28); }
+.lb__prev { left: 20px; } .lb__next { right: 20px; } .lb__close { top: 16px; right: 20px; }
+.lb { background: rgba(10, 10, 10, .97); }
+@media (max-width: 700px) { .lb__prev { left: 12px; } .lb__next { right: 12px; } }
+
+/* =====================================================================
+   2026-10-06 (Mark): use more of the page, and keep headings on one line.
+   ===================================================================== */
+:root {
+  --container-max: 1760px;
+  --gutter: clamp(20px, 3.4vw, 56px);
+}
+.tb-container, .header-inner, .hero__inner { max-width: var(--container-max); padding-inline: var(--gutter); }
+
+/* Headings run the full width; only body copy keeps a reading measure. */
+.hero__title, .hero--page .hero__title { max-width: none; text-wrap: wrap; }
+.section-head, .sec-head { max-width: none; }
+.section-head p:not(.eyebrow), .sec-head p:not(.eyebrow) { max-width: 72ch; }
+.why-promise { max-width: none; }
+
+/* The gallery now simply fills the (wider) content column. */
+.gallery { --gw: 100%; width: 100%; margin-left: 0; }
+@media (max-width: 560px) {
+  .gallery { width: calc(100% + 2 * var(--gutter)); margin-left: calc(-1 * var(--gutter)); }
+}
+/* Inner-page hero titles sized to sit on one line on a laptop or larger. */
+.hero--page .hero__title { font-size: clamp(34px, 3.5vw, 64px); line-height: 1.12; }
+.qa, .intro { max-width: 1100px; }
+
+/* Gallery rhythm (Mark, 2026-10-06): six photos, then one full-width photo, then the rest. */
+.g-item:first-child { grid-column: auto; aspect-ratio: 3 / 2; }
+.gallery > :nth-child(7) { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
+@media (max-width: 900px) { .gallery > :nth-child(7) { aspect-ratio: 16 / 9; } }
