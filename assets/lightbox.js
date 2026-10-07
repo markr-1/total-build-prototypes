@@ -24,7 +24,7 @@
 
   function show() {
     var src = list[index];
-    img.src = src.currentSrc || src.src;
+    img.src = src.getAttribute('data-full') || src.currentSrc || src.src;
     img.alt = src.alt;
     count.textContent = (index + 1) + ' / ' + list.length;
   }

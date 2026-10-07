@@ -471,8 +471,6 @@
          2026-09-27: "it all in one layer"). */
       grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: var(--space-8);
-      padding-bottom: var(--space-8);
-      border-bottom: var(--border-width) solid var(--border-on-inverse);
     }
     .footer-brand { display: flex; flex-direction: column; gap: var(--space-5); }
     /* Live text, not the SVG logotype, for the same reason as the header: an
@@ -494,6 +492,9 @@
     .footer-wordmark:hover { color: var(--accent); }
     .footer-wordmark__mark { width: 28px; height: 28px; display: block; flex: none; }
     .footer-brand p { max-width: 34ch; color: var(--text-on-inverse-muted); margin: 0; }
+    /* The old bottom strip (seal + copyright) folded into one line here (Mark, 2026-10-07). */
+    .footer-brand .footer-legal { max-width: none; margin-top: auto; padding-top: var(--space-4); font-size: 14px; }
+    @media (min-width: 901px) { .footer-brand .footer-legal { white-space: nowrap; } }
     .footer-col h4 { margin: 0 0 var(--space-3); color: var(--text-on-inverse); }
     .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
     .footer-col a, .footer-col li { color: var(--text-on-inverse-muted); }
@@ -889,12 +890,17 @@
 .hero__scrim {
   background:
     linear-gradient(to top,
-      rgba(15,27,38,0.92) 0%,
-      rgba(15,27,38,0.78) 26%,
-      rgba(15,27,38,0.42) 52%,
-      rgba(15,27,38,0.18) 78%,
-      rgba(15,27,38,0.30) 100%);
+      rgba(15,27,38,0.68) 0%,
+      rgba(15,27,38,0.46) 22%,
+      rgba(15,27,38,0.14) 45%,
+      rgba(15,27,38,0) 70%,
+      rgba(15,27,38,0.12) 100%);
 }
+/* Lightened 2026-10-07 (Mark: "too dark, all the images should be brighter").
+   Subtitles are gone, so only the title sits on the band; a soft shadow keeps
+   it legible over bright siding instead of a heavy scrim. */
+.hero h1 { text-shadow: 0 1px 18px rgba(15,27,38,0.6); }
+.hero .eyebrow { text-shadow: 0 1px 8px rgba(15,27,38,0.85), 0 0 2px rgba(15,27,38,0.6); }
 
 /* ---------------------------------------------------------------------
    Testimonial band (homepage). Built to hold a filmed testimonial once
@@ -1313,3 +1319,71 @@ body.lb-lock { overflow: hidden; }
 .g-item:first-child { grid-column: auto; aspect-ratio: 3 / 2; }
 .gallery > :nth-child(7) { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
 @media (max-width: 900px) { .gallery > :nth-child(7) { aspect-ratio: 16 / 9; } }
+
+/* ---------------------------------------------------------------------
+   Team page polish, 2026-10-07 (Mark).
+   - The lead under "The core of our standard" sat right on the values'
+     top rules; give it room.
+   - Founder entry (text-only, no headshot): a centred card with a warm
+     bronze tint, the title framed by bronze rules, the name in the display
+     face, and a small bronze diamond before the paragraph.
+   --------------------------------------------------------------------- */
+.values-lead { margin-top: 0; margin-bottom: var(--space-6); max-width: 62ch; }
+.founder.founder--card {
+  display: block; max-width: 780px; margin-inline: auto; text-align: center;
+  background: rgba(202, 123, 65, 0.08);
+  border-top: 2px solid var(--tb-heritage-bronze);
+  padding: var(--space-8) clamp(24px, 5vw, 64px);
+}
+.founder--card .eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  color: var(--tb-bronze-strong); margin: 0 0 var(--space-3);
+}
+.founder--card .eyebrow::before,
+.founder--card .eyebrow::after { content: ''; width: 36px; height: 1px; background: var(--tb-heritage-bronze); }
+.founder--card h2 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: var(--type-h-xl-size); line-height: 1.15; margin: 0;
+}
+.founder--card h2::after {
+  content: ''; display: block; width: 8px; height: 8px; margin: var(--space-4) auto var(--space-4);
+  background: var(--tb-heritage-bronze); transform: rotate(45deg);
+}
+.founder--card .prose { margin-inline: auto; }
+.founder--card .prose p { margin: 0; }
+@media (max-width: 640px) { .founder--card h2 { font-size: var(--type-h-lg-size); } }
+
+/* ---------------------------------------------------------------------
+   Mobile pass, 2026-10-07 (Joe: "looked a little odd on my phone").
+   - Galleries go two-up below 900px, and the full-width cells (slot 7,
+     and quote cards below 560px) left lone photos beside empty holes.
+     Dense flow lets a later photo fill the hole; when the half-width count
+     is odd, build_galleries.py marks the last photo to run full width.
+   - Footer: the brand block opens up so the copyright line sits last.
+   - Hero: phones crop tight onto bright siding, so the band behind the
+     title is a little deeper there than on desktop.
+   --------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .gallery { grid-auto-flow: row dense; }
+  .footer-brand { display: contents; }
+  .footer-brand .footer-legal { order: 99; padding-top: 0; }
+}
+@media (min-width: 561px) and (max-width: 900px) { .g-span-md { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .g-span-sm { grid-column: 1 / -1; } }
+@media (max-width: 700px) {
+  .hero__scrim {
+    background: linear-gradient(to top,
+      rgba(15,27,38,0.80) 0%, rgba(15,27,38,0.58) 28%, rgba(15,27,38,0.18) 55%,
+      rgba(15,27,38,0) 75%, rgba(15,27,38,0.12) 100%);
+  }
+}
+/* Inner-page heroes on phones: the scrim is fixed to the full viewport, but
+   the hero only fills the top ~70% of it, so the title sits 35-55% up from
+   the bottom of the screen. Put the dark band there. */
+@media (max-width: 700px) {
+  main > .hero--page .hero__scrim {
+    background: linear-gradient(to top,
+      rgba(15,27,38,0.70) 0%, rgba(15,27,38,0.66) 32%, rgba(15,27,38,0.46) 48%,
+      rgba(15,27,38,0.14) 62%, rgba(15,27,38,0) 76%, rgba(15,27,38,0.12) 100%);
+  }
+}
