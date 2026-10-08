@@ -1416,3 +1416,29 @@ body.lb-lock { overflow: hidden; }
   .site-nav.open a:last-child { border-bottom: none; }
   .site-nav.open a:hover { border-bottom-color: var(--border-default); }
 }
+
+/* ---------------------------------------------------------------------
+   Mark's notes, 2026-10-07 (night).
+   - Homepage project cards: number and place on ONE line, and less air
+     between the cards and the "How We Do It" section that follows.
+   - Renovations: "The same standard..." is a centred, self-contained
+     section rather than a lone eyebrow and prose hugging the left edge.
+   --------------------------------------------------------------------- */
+.pair__eyebrow { display: flex; align-items: baseline; gap: 14px; margin-bottom: 0; }
+.pair__eyebrow .pair__no { display: inline; margin: 0; }
+.section--pair { padding-bottom: var(--space-6); }
+.section--pair + .section { padding-top: var(--space-8); }
+@media (max-width: 900px) {
+  .section--pair { padding-bottom: var(--space-4); }
+  .section--pair + .section { padding-top: var(--space-6); }
+}
+.standard {
+  max-width: 820px; margin-inline: auto; text-align: center;
+  border-top: 2px solid var(--tb-heritage-bronze);
+  background: rgba(202, 123, 65, 0.06);
+  padding: var(--space-8) clamp(24px, 5vw, 64px);
+}
+.standard .eyebrow { margin: 0 0 var(--space-3); }
+.standard h2 { margin: 0 0 var(--space-5); }
+.standard .prose { margin-inline: auto; max-width: 62ch; }
+.standard__link { margin: var(--space-5) 0 0; }

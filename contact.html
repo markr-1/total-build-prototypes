@@ -74,6 +74,9 @@
   @media (max-width: 900px) {
     .aside { padding: var(--space-4); min-height: 260px; }
     .aside__quote { font-size: var(--type-h-md-size); line-height: var(--type-h-md-lh); }
+    /* phones: phone, email and town sit flush left, under the quote (Mark, 2026-10-07) */
+    .aside__foot { justify-content: flex-start; }
+    .aside__contact { text-align: left; }
   }
 
   /* ---- Right: the conversation ---- */
