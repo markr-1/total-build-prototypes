@@ -700,7 +700,7 @@
 .sec-head h2 { font-family: var(--font-display); font-weight: var(--fw-regular);
   font-size: var(--type-h-xl-size); line-height: var(--type-h-xl-lh);
   letter-spacing: -0.01em; color: var(--text-strong); margin: 0; }
-.sec-head p { margin: var(--space-4) 0 0; font-size: var(--type-body-lg-size);
+.sec-head p:not(.eyebrow) { margin: var(--space-4) 0 0; font-size: var(--type-body-lg-size);
   line-height: var(--type-body-lg-lh); color: var(--text-muted); }
 @media (max-width: 900px) {
   .sec-head { margin-bottom: var(--space-8); }
@@ -710,7 +710,7 @@
 .band-sunken { background: var(--surface-sunken); border-block: var(--border-width) solid var(--border-default); }
 .band-inverse { background: var(--surface-inverse); color: var(--text-on-inverse); }
 .band-inverse h1, .band-inverse h2, .band-inverse h3 { color: var(--tb-architectural-cream); }
-.band-inverse .sec-head p, .band-inverse .prose p { color: var(--tb-architectural-cream); }
+.band-inverse .sec-head p:not(.eyebrow), .band-inverse .prose p { color: var(--tb-architectural-cream); }
 .band-inverse .eyebrow { color: var(--accent); }
 .band-inverse .textlink { color: var(--tb-architectural-cream); }
 
