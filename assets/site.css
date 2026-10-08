@@ -715,7 +715,7 @@
 .band-inverse .textlink { color: var(--tb-architectural-cream); }
 
 .cols { display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 0 var(--gutter); border-top: var(--border-width) solid var(--border-strong); }
+  gap: 0 var(--gutter); }
 .cols--2 { grid-template-columns: repeat(2, 1fr); }
 .col { padding: var(--space-4) var(--space-4) var(--space-6) 0;
   border-top: var(--border-width) solid var(--border-strong); }
@@ -1483,4 +1483,16 @@ body.lb-lock { overflow: hidden; }
 .statement__body p:last-child { margin-bottom: 0; }
 @media (max-width: 900px) {
   .statement { grid-template-columns: 1fr; gap: var(--space-5); }
+}
+
+/* Renovations + Loudoun opening questions at full heading size, so they no
+   longer read as a style jump against every other section heading (Joe, 10-06). */
+.intro h2 { font-size: var(--type-h-xl-size); line-height: var(--type-h-xl-lh); letter-spacing: -0.01em; color: var(--text-strong); margin: 0 0 var(--space-5); }
+@media (max-width: 900px) { .intro h2 { font-size: var(--type-h-lg-size); line-height: var(--type-h-lg-lh); } }
+
+/* Process steps: the number sits on the title's own line ("01  We walk the
+   land") instead of on a line of its own (Mark, 2026-10-08). */
+.flagship__title .flagship__no {
+  display: inline; margin: 0 0.55em 0 0;
+  font-size: inherit; line-height: inherit; color: var(--accent-ink);
 }
