@@ -1442,3 +1442,5 @@ body.lb-lock { overflow: hidden; }
 .standard h2 { margin: 0 0 var(--space-5); }
 .standard .prose { margin-inline: auto; max-width: 62ch; }
 .standard__link { margin: var(--space-5) 0 0; }
+/* the 01/02 take the label's own colour (Mark, 2026-10-07) */
+.pair__eyebrow .pair__no { color: inherit; }
