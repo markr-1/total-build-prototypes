@@ -74,10 +74,16 @@ document.documentElement.classList.add('js');
   var nav = document.getElementById('siteNav');
   if (!btn || !nav) return;
   var header = document.getElementById('siteHeader');
-  btn.addEventListener('click', function () {
-    var open = nav.classList.toggle('open');
+  var setOpen = function (open) {
+    nav.classList.toggle('open', open);
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     /* an open menu over a transparent header would stack links on the photo */
     if (header) header.classList.toggle('nav-open', open);
+  };
+  btn.addEventListener('click', function () { setOpen(!nav.classList.contains('open')); });
+  /* the menu drops down over the page, so close it on a pick or on Escape */
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav.classList.contains('open')) { setOpen(false); btn.focus(); }
   });
 })();

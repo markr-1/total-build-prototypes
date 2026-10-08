@@ -1387,3 +1387,32 @@ body.lb-lock { overflow: hidden; }
       rgba(15,27,38,0.14) 62%, rgba(15,27,38,0) 76%, rgba(15,27,38,0.12) 100%);
   }
 }
+
+/* ---------------------------------------------------------------------
+   Joe's notes, 2026-10-07.
+   - Homepage project cards are now just the place line, so it carries the link.
+   - Header logo and menu a size up (12px labels -> 14px, monogram 28 -> 36).
+   - Phones: the menu drops down under the bar as a full-width list. It used
+     to open as a row inside the header and ran off the right edge.
+   --------------------------------------------------------------------- */
+.pair__eyebrow a { color: inherit; text-decoration: none; }
+.pair__eyebrow a:hover { color: var(--accent-ink); }
+.wordmark, .site-nav a, .nav-toggle { font-size: 14px; }
+.wordmark { gap: 12px; }
+.wordmark__mark { width: 36px; height: 36px; }
+@media (max-width: 900px) {
+  .site-nav.open {
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--surface-page);
+    border-bottom: var(--border-width) solid var(--border-default);
+    box-shadow: var(--shadow-ambient);
+    padding: var(--space-2) var(--gutter) var(--space-4);
+  }
+  .site-nav.open a {
+    display: block; padding-block: 16px; font-size: 15px;
+    border-bottom: var(--border-width) solid var(--border-default);
+  }
+  .site-nav.open a:last-child { border-bottom: none; }
+  .site-nav.open a:hover { border-bottom-color: var(--border-default); }
+}
