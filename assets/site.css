@@ -1444,3 +1444,23 @@ body.lb-lock { overflow: hidden; }
 .standard__link { margin: var(--space-5) 0 0; }
 /* the 01/02 take the label's own colour (Mark, 2026-10-07) */
 .pair__eyebrow .pair__no { color: inherit; }
+
+/* ---------------------------------------------------------------------
+   Second review pass, 2026-10-07.
+   - Process steps: reversed rows put the photo in the narrow column, so
+     steps 2 and 4 had smaller photos. Flip the columns with the photo.
+     Steps also sit a little closer together.
+   - Renovations .standard heading in the display serif like every other
+     section heading (it was falling back to the body sans).
+   --------------------------------------------------------------------- */
+.flagship--reverse { grid-template-columns: 5fr 7fr; }
+.flagship + .flagship { margin-top: var(--space-12); }
+@media (max-width: 900px) {
+  .flagship--reverse { grid-template-columns: 1fr; }
+  .flagship + .flagship { margin-top: var(--space-8); }
+}
+.standard h2 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: var(--type-h-xl-size); line-height: 1.15; letter-spacing: -0.01em;
+}
+@media (max-width: 640px) { .standard h2 { font-size: var(--type-h-lg-size); } }
