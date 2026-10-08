@@ -1464,3 +1464,23 @@ body.lb-lock { overflow: hidden; }
   font-size: var(--type-h-xl-size); line-height: 1.15; letter-spacing: -0.01em;
 }
 @media (max-width: 640px) { .standard h2 { font-size: var(--type-h-lg-size); } }
+
+/* ---------------------------------------------------------------------
+   .statement (Mark, 2026-10-07): a short closing statement in the site's
+   own editorial grammar - label and serif heading on the left, text on
+   the right, a rule across the top. Replaces the tinted founder card and
+   the Renovations card, which read as generic.
+   --------------------------------------------------------------------- */
+.statement {
+  display: grid; grid-template-columns: 5fr 7fr; gap: var(--space-12);
+  border-top: var(--border-width) solid var(--border-strong);
+  padding-top: var(--space-6);
+}
+.statement__head .eyebrow { margin: 0 0 var(--space-3); }
+.statement__head h2 { margin: 0; }
+.statement__body { max-width: 62ch; padding-top: var(--space-1); }
+.statement__body p { margin: 0 0 var(--space-4); font-size: var(--type-body-lg-size); line-height: var(--type-body-lg-lh); color: var(--text-body); }
+.statement__body p:last-child { margin-bottom: 0; }
+@media (max-width: 900px) {
+  .statement { grid-template-columns: 1fr; gap: var(--space-5); }
+}
