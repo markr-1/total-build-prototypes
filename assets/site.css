@@ -1496,3 +1496,6 @@ body.lb-lock { overflow: hidden; }
   display: inline; margin: 0 0.55em 0 0;
   font-size: inherit; line-height: inherit; color: var(--accent-ink);
 }
+
+/* Money section: both paragraphs at the same lead size (Mark, 2026-10-08); keep a paragraph gap between them. */
+.why-copy .lead + .lead { margin-top: var(--space-4); }
